@@ -1,0 +1,37 @@
+<div class="contenedor">
+<div id="principal">
+    <h2>Enviar solicitud de nuevo horario:</h2>
+    <form>
+      <div class="form-group">
+        <label for="especialidad">Hora de entrada:</label>
+        <select name="selectedOption" [(ngModel)]="horaEntrada">
+          <option *ngFor="let numero of numeros" [value]="numero">{{numero}}:00</option>
+        </select>
+        <label for="especialidad">Hora de salida:</label>
+        <select name="selectedOption" [(ngModel)]="horaSalida">
+          <option *ngFor="let numero of numeros" [value]="numero">{{numero}}:00</option>
+        </select>
+        <button type="submit" class="btn btn-primary" (click)=" CrearHorarioNuevo()">Agregar Horario</button>
+      </div>
+    </form>
+</div>
+<div id="principal">
+  <h2>Horarios Agregados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Hora de entrada:</th>
+        <th>Hora de salida</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let hora of horarios; let i = index">
+      <tr *ngIf="i % 2 === 0">
+        <td>{{horarios[i]}}</td>
+        <td>{{horarios[i+1]}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
+</div>

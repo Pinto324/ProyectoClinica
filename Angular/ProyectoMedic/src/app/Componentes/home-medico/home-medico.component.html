@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Medicos</title>
+        <link rel="stylesheet" href="home-medico.component.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <section>
+        <header style="z-index: 4;">
+            <div class="contenedorGrande">
+                <div class="contenedor">
+                    <div class="nav-link" (click)="abrirMenuReportes()" id="menuReportes">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4701/4701237.png" width="60" height="60">
+                        <label>Reportes</label>
+                    </div>
+                    <a (click)="abrirFormularioHorario()" class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2802/2802886.png" width="60" height="60">
+                        <label>Horario de atención</label>
+                    </a>
+                    <a (click)="abrirFormularioEspecialidad()" class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3891/3891419.png" width="60" height="60">
+                        <label>Menu Especialidades</label>
+                    </a>
+                </div>
+                <div class="contenedor">
+                    <a href="MenuInicial.jsp" id="logo">Medicos</a>
+                </div>
+                <div class="contenedor">
+                    <a (click)="abrirFormularioConsulta()" class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4931/4931082.png" width="60" height="60">
+                        <label>Menu consultas</label>
+                    </a>
+                    <a (click)="abrirFormularioHistorialMedico()" class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2279/2279674.png" width="60" height="60">
+                        <label>Ver Historial médico</label>
+                    </a>
+                    <a class="nav-link" href="../Login.jsp?cerrar=true">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2574/2574200.png" width="60" height="60">
+                        <label>Cerrar Sesión</label>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </section>
+        <section id="sectionLibro">
+            <div class="contenedorPrincipal">
+                <app-medico-menu-especialidades *ngIf="mostrarFormularioEspecialidad"></app-medico-menu-especialidades> 
+                <app-medico-horarios *ngIf="mostrarFormularioHorario"></app-medico-horarios>  
+                <app-medico-menu-consultas *ngIf="mostrarFormularioConsulta"></app-medico-menu-consultas>  
+                <app-medico-menu-historial *ngIf="mostrarFormularioHistorialMedico"></app-medico-menu-historial>
+                <app-menu-reportes-medicos *ngIf="mostrarMenuReportes"></app-menu-reportes-medicos>
+            </div>
+        </section>
+    </body>
+</html>
+

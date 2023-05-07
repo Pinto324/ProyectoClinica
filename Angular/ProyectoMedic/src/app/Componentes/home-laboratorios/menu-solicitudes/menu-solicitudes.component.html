@@ -1,0 +1,27 @@
+<div>
+      <table>
+          <thead>
+            <tr>
+              <th>Id de la Solicitud</th>
+              <th>Nombre Del Paciente</th>
+              <th>Fecha en la que se solicito</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let dato of Solicitud; let i = index;">
+                <ng-container *ngIf="i % 4 === 0">
+                  <tr>
+                    <ng-container *ngFor="let columna of [0, 1, 2, 3]; let j = index;">
+                    <td>{{Solicitud[i + j] }}</td>
+                    </ng-container>
+                    <td>
+                        <button type="button" class="btn btn-primary" (click)="modal.showModalInicial(Solicitud[i])">Abrir</button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+          </tbody>
+        </table>
+        <app-modal-agregar-examenes #modal (cerrado)="ngOnInit()"></app-modal-agregar-examenes>    
+  </div>

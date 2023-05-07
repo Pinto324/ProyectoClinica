@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Medicos</title>
+        <link rel="stylesheet" href="home-laboratorios.component.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <section>
+        <header style="z-index: 4;">
+            <div class="contenedorGrande">
+                <div class="contenedor">
+                    <div class="nav-link" (click)="abrirMenuReportes()" id="menuReportes">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4701/4701237.png" width="60" height="60">
+                        <label>Reportes</label>
+                    </div>
+                    <a (click)="abrirFormularioExamen()" class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/8890/8890577.png" width="60" height="60">
+                        <label>Menu Asignar Examen</label>
+                    </a>
+                </div>
+                <div class="contenedor">
+                    <a id="logo">Laboratorios</a>
+                </div>
+                <div class="contenedor">
+                    <a (click)="abrirFormularioSolicitud()" class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2000/2000842.png" width="60" height="60">
+                        <label>Menu Solicitudes</label>
+                    </a>
+                    <a class="nav-link" href="../Login.jsp?cerrar=true">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2574/2574200.png" width="60" height="60">
+                        <label>Cerrar Sesión</label>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </section>
+        <section id="sectionLibro">
+            <div class="contenedorPrincipal">
+                <app-menu-solicitudes *ngIf="MostrarSolicitud"></app-menu-solicitudes>
+                <app-menu-examenes *ngIf="MostrarExamen"></app-menu-examenes>
+                <app-menu-reportes *ngIf="MostrarReportes"></app-menu-reportes>
+            </div>
+        </section>
+    </body>
+</html>
+
+

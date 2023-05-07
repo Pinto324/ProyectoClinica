@@ -1,0 +1,49 @@
+<ng-container *ngIf="show">
+    <div class="modalC">
+        <div class="modalC-content">
+            <div class="modalc-header">
+                <h4 class="modalc-title">
+                    Solicitud de examen:
+                </h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" (click)="show = false;">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+            </div>
+            <!-- Cuerpo si la consulta es pendiente: -->
+                <div class="modalC-container"> 
+                    <table>
+                        <tr>
+                            <td>Nombre del examen:</td>
+                            <td></td>
+                            <td>Subir</td>
+                          </tr>
+                        <ng-container *ngFor="let dato of tabla; let i = index;">
+                        <ng-container *ngIf="i % 3 === 0">
+                            <tr>
+                              <ng-container *ngFor="let columna of [0, 1, 2]; let j = index;">
+                                <td>{{ j === 0 ? tabla[i + j] : '' }}</td>
+                              </ng-container>
+                              <td>
+                                <input *ngIf="tabla[i + 1].includes('No')" type="file" (change)="onFileSelected($event)">
+                                <div  *ngIf="tabla[i + 1].includes('No'); then cumple else noCumple"></div>
+                                <button *ngIf="tabla[i + 1] == 'No'" (click)="uploadFile(tabla[i+2])">Upload</button>
+                                <label *ngIf="tabla[i + 1] !== 'No'">{{ tabla[i+1]}}</label>
+                                <ng-template #cumple>
+                                  {{desactivarBoton()}}
+                                </ng-template>
+                                <ng-template #noCumple>
+                                  {{activarBoton()}}
+                                </ng-template>
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-container>
+                      </table>
+                    <div class="botones">
+                        <button (click)="FinalizarConsulta()" *ngIf="lleno" >Finalizar solicitud</button>
+                    </div>
+                </div>
+            </div>
+        </div>      
+</ng-container>

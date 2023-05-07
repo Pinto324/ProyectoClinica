@@ -1,0 +1,48 @@
+<div class="container">
+<div class="principal">
+    <h2>Enviar solicitud de nuevo Examen</h2>
+    <form>
+      <div class="form-group">
+        <label for="especialidad">Examen</label>
+        <select name="selectedOption" [(ngModel)]="selectedOption">
+          <option *ngFor="let Examenes of Examenes" [value]="Examenes.idTipoDeExamenes">{{Examenes.nombreExamen}}</option>
+        </select>
+        <label for="precio">Precio por examen:</label>
+        <input type="number" class="form-control " id="precio" min="0" name="inputValue" [(ngModel)]="inputValue">
+        <button type="submit" class="btn btn-primary" (click)="EnviarSolicitudExamen()">Agregar Examen</button>
+      </div>
+    </form>
+</div>
+<div class="principal">
+  <h2>Examenes Agregados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Estado</th>
+        <th>Nuevo Precio</th>
+        <th>Guardar</th>
+      </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let dato of examenesAgregados; let i = index;">
+            <ng-container *ngIf="i % 4 === 0">
+              <tr>
+                <ng-container *ngFor="let columna of [0, 1, 2]; let j = index;">
+                <td>{{ examenesAgregados[i + j + 1] }}</td>
+                </ng-container>
+                <td>
+                    <input type="hidden" [(ngModel)]="examenesAgregados[i]" name="id">
+                    <input class="Edit" type="number" [(ngModel)]="examenesAgregados[i + 2]" name="precio">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="editarEspecialidad(examenesAgregados[i], examenesAgregados[i+2])">Guardar</button>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+    </tbody>
+  </table>
+</div>
+</div>

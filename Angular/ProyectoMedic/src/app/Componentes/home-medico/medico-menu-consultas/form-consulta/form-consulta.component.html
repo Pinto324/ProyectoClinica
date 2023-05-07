@@ -1,0 +1,47 @@
+<ng-container *ngIf="show">
+    <div class="modalC">
+        <div class="modalC-content">
+            <div class="modalc-header">
+                <h4 class="modalc-title">
+                    Consulta id: {{ datos.IdConsultas }}
+                </h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" (click)="show = false;">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+            </div>
+            <!-- Cuerpo si la consulta es pendiente: -->
+                <div class="modalC-container"> 
+                    <table>
+                        <tr>
+                          <td>Nombre del paciente:</td>
+                          <td>{{datos.NombrePaciente}}</td>
+                        </tr>
+                        <tr>
+                          <td>Especialidad consultada:</td>
+                          <td>{{datos.NombreEspecialidad}}</td>
+                        </tr>
+                        <tr>
+                          <td>Precio de la consulta:</td>
+                          <td>Q{{datos.Precio}}</td>
+                        </tr>
+                        <tr>
+                          <td>Fecha Agendada:</td>
+                          <td>{{datos.FechaAgendada}}</td>
+                        </tr>
+                        <tr>
+                          <td>Estado:</td>
+                          <td>{{datos.Estado}}</td>
+                        </tr>
+                      </table>
+                    <div class="botones">
+                        <button *ngIf="pendiente" (click)="ModalExamen.Mostrar(datos); hideModal()">Agregar Examenes</button>
+                        <button *ngIf="revision" (click)="Descargar()">Descargar examenes</button>
+                        <button (click)="ModalCompletar.EncenderModal(datos)" >Finalizar consulta</button>
+                    </div>
+                </div>
+            </div>
+        </div>      
+</ng-container>
+        <app-modal-agregar-examenes-consulta #ModalExamen></app-modal-agregar-examenes-consulta>
+        <app-modal-informefinal #ModalCompletar (cerrado)="cerrarDialogo()"></app-modal-informefinal>

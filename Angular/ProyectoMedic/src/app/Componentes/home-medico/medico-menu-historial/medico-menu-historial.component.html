@@ -1,0 +1,48 @@
+<div class="ContenedorPrincipal">
+    <div class="divHeader">
+        <h1>Historial Medico de pacientes</h1>
+        <div class="divHead">
+            <label for="fecha">Seleccione al paciente:</label>
+            <select name="selectedOption" [(ngModel)]="selectedOption">
+                <option *ngFor="let paciente of pacientes"[value]="paciente.Codigo">
+                    Id: {{paciente.Codigo}}, Nombre: {{paciente.Nombre}}
+                </option>
+            </select>
+            <button (click)="llenarDatos()">Buscar</button>
+        </div>
+    </div>
+    <div class="divBody">
+        <ng-container *ngIf="mostrar">
+            <div class="table-container">
+                <table>
+                    <tr *ngFor="let Info of datos">
+                        <td>
+                            <div class="divInfo">
+                                <div class="divInterno">
+                                    <table>
+                                        <tr>
+                                          <td>Nombre del paciente:</td>
+                                          <td>{{Info.NombrePaciente}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td>Especialidad consultada:</td>
+                                          <td>{{Info.NombreEspecialidad}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td>Fecha consultada:</td>
+                                          <td>{{Info.FechaAgendada}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="divInterno">
+                                    <textarea readonly class="text-area">Informe final del medico: {{Info.InformeFinal}}</textarea>
+                                    <button (click)="Descargar(Info.IdConsultas)">Descargar Examenes</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ng-container>
+    </div>
+</div>

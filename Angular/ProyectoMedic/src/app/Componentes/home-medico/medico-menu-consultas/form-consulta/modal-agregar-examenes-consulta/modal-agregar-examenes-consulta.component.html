@@ -1,0 +1,36 @@
+<ng-container *ngIf="chow">
+    <div class="modalC">
+        <div class="modalC-content">
+            <div class="modalc-header">
+                <h4 class="modalc-title">
+                    Agregar Examenes a la consulta id: {{ datos.IdConsultas }}
+                </h4>
+            </div>
+            <!-- Cuerpo  -->
+                <div class="modalC-container"> 
+                    <label for="especialidad">Selecione un examen para agregar</label>
+                    <select name="selectedOption" [(ngModel)]="selectedOption">
+                        <option *ngFor="let examenes of examenes" [value]="examenes.nombreExamen">{{examenes.nombreExamen}}</option>
+                    </select>
+                    <button (click)=" AgregarExamenSeleccionado()">Agregar Examen seleccionado</button>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Examenes Agregados:</th>
+                            <th>Acción</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of ExamenesAgregados">
+                            <td>{{ item }}</td>
+                            <td><button (click)="EliminarExamenesSolicitados(item)"> Eliminar Examen</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    <div class="botones">
+                        <button (click)="Finalizar()">Finalizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
+</ng-container>

@@ -1,0 +1,37 @@
+<div id="principal">
+    <h2>Enviar solicitud de nueva Especialidad</h2>
+    <form>
+      <div class="form-group">
+        <label for="especialidad">Especialidad</label>
+        <select name="selectedOption" [(ngModel)]="selectedOption">
+          <option *ngFor="let especialidades of especialidades" [value]="especialidades.NombreEspecialidad">{{especialidades.NombreEspecialidad}}</option>
+        </select>
+        <label for="precio">Precio por consulta:</label>
+        <input type="number" class="form-control " id="precio" min="0" name="inputValue" [(ngModel)]="inputValue">
+        <button type="submit" class="btn btn-primary" (click)="EnviarSolicitudEspecialidad()">Agregar Especialidad</button>
+      </div>
+    </form>
+</div>
+<div id="principal">
+  <h2>Especialidades Agregadas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Estado</th>
+        <th>Nuevo Precio</th>
+        <th>Guardar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of especialidadesAgregadas">
+        <td>{{ e.NombreEspecialidad }}</td>
+        <td>{{ e.Precio }}</td>
+        <td>{{ e.Estado }}</td>
+        <td><input class="Edit" type="number" [(ngModel)]="e.nuevoPrecio"></td>
+        <td><button type="button" class="btn btn-primary" (click)="editarEspecialidad(e, e.nuevoPrecio)">Guardar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

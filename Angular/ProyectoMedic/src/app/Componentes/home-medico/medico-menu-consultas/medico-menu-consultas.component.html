@@ -1,0 +1,34 @@
+<div>
+  <div id="divArriba">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" [(ngModel)]="fechaSeleccionada">
+    <button type="button" (click)="ActualizarTablaFecha()">Buscar por fecha</button>
+    <button type="button" (click)="ActualizarTablaHoy()">Pendientes</button>
+    <button type="button" (click)=" ActualizarTablaRevision()">Revisar Examen</button>
+  </div>
+  
+    <table>
+        <thead>
+          <tr>
+            <th>Id de la consulta</th>
+            <th>Nombre Del Paciente</th>
+            <th>Especialidad consultada</th>
+            <th>Precio de la consulta</th>
+            <th>Fecha Agendada</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of Consulta">
+            <td>{{ fila.IdConsultas }}</td>
+            <td>{{ fila.NombrePaciente }}</td>
+            <td>{{ fila.NombreEspecialidad }}</td>
+            <td>Q {{ fila.Precio }}</td>
+            <td>{{ fila.FechaAgendada }}</td>
+            <td>{{ fila.Estado }}</td>
+            <td><button (click)="modal.showModalInicial(fila)">Ver Consulta</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <app-form-consulta #modal (dialogoCerrado)="ActualizarTablaHoy()"></app-form-consulta>    
+</div>
