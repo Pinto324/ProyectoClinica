@@ -1,0 +1,25 @@
+<div class="contenedor">
+    <div class="search-container">
+        <i class="material-icons search-icon">search</i>
+        <input class="search-input" type="text" placeholder="Buscar..." [(ngModel)]="busqueda" (input)="onInput($event)" (ngModelChange)="comprobadorDeInfo()">
+      </div>
+    <table>
+        <thead>
+            <tr>
+              <th>Id del doctor</th>
+              <th>Nombre Del doctor</th>
+              <th>Especialidad</th>
+              <th></th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr *ngFor="let dato of TablaGrafica">
+            <td> {{ dato.Id }}</td>
+            <td> {{ dato.Nombre }}</td>
+            <td>{{ dato.Especialidad }}</td>
+            <td><button (click)="modal.Mostrar(dato)">Crear consulta</button></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<app-modal-nuevo-consulta #modal (cerrado)="ngOnInit()"></app-modal-nuevo-consulta>

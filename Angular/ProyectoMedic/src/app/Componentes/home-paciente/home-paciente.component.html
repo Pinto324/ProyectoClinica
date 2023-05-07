@@ -19,18 +19,26 @@
                         <img src="https://cdn-icons-png.flaticon.com/512/4701/4701237.png" width="60" height="60">
                         <label>Reportes</label>
                     </div>
+                    <a (click)="abrirMenuConsultaNueva()"  class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1469/1469975.png" width="60" height="60">
+                        <label>Solicitar una consulta</label>
+                    </a>
                     <a  class="nav-link">
-                        <img src="https://cdn-icons-png.flaticon.com/512/8890/8890577.png" width="60" height="60">
-                        <label>Menu Asignar Examen</label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/5897/5897458.png" width="60" height="60">
+                        <label>Ver Consultas pendientes</label>
                     </a>
                 </div>
                 <div class="contenedor">
-                    <a id="logo">Laboratorios</a>
+                    <a (click)="abrirRecarga()" id="logo">Pacientes</a>
                 </div>
                 <div class="contenedor">
                     <a  class="nav-link">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2000/2000842.png" width="60" height="60">
-                        <label>Menu Solicitudes</label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1934/1934474.png" width="60" height="60">
+                        <label>Solicitar Examenes nuevos</label>
+                    </a>
+                    <a  class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2464/2464568.png" width="60" height="60">
+                        <label>Ver Examenes pendientes</label>
                     </a>
                     <a class="nav-link" href="../Login.jsp?cerrar=true">
                         <img src="https://cdn-icons-png.flaticon.com/512/2574/2574200.png" width="60" height="60">
@@ -42,7 +50,12 @@
     </section>
         <section id="sectionLibro">
             <div class="contenedorPrincipal">
-
+                <div *ngIf="MostrarRecarga" class="divRecarga">
+                    <label>Ingresa la cantidad que deseas recargar a tu cuenta:</label>
+                    <input type="number" [(ngModel)]="Recarga" min="1" max="10000">
+                    <button type="button" (click)="Recargar()">Recargar</button>
+                </div>
+                <app-menu-solicitar-consulta *ngIf="ConsultaNueva"></app-menu-solicitar-consulta>
             </div>
         </section>
     </body>

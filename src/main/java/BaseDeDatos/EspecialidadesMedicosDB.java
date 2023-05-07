@@ -95,4 +95,27 @@ public class EspecialidadesMedicosDB {
             return false;
         }
     }
+    public List<String> ListaEspecialidadesYDoctores(){
+        Con = new Conexion();
+        List<String> ListaString = new ArrayList<>();
+        ResultSet U;
+        try {
+            U = Con.IniciarConexion().executeQuery("SELECT * FROM especialidadesmedicos INNER JOIN especialidades ON especialidades.IdEspecialidades = IdEspecialidadEM INNER JOIN usuariosmedic ON usuariosmedic.IdUsuario = IdDelMedicoEM;");           
+                while(U.next()){  
+                    String dato;
+                    dato = String.valueOf(U.getInt(U.findColumn("IdDelMedicoEM")));
+                    ListaString.add(dato);
+                    dato = U.getString(U.findColumn("NombreUsuario"));
+                    ListaString.add(dato);
+                    dato = U.getString(U.findColumn("NombreEspecialidad"));
+                    ListaString.add(dato);
+                }
+                U.close();
+                Con.CerrarConexiones();
+                return ListaString;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
 }

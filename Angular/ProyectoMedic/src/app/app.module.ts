@@ -24,6 +24,8 @@ import { HomeAdminComponent } from './Componentes/home-admin/home-admin.componen
 import { HomePacienteComponent } from './Componentes/home-paciente/home-paciente.component'; // importa el routing module de medicos
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { MenuReportesComponent } from './menu-reportes/menu-reportes.component';
+import { MenuSolicitarConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/menu-solicitar-consulta.component';
+import { ModalNuevoConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/modal-nuevo-consulta/modal-nuevo-consulta.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Ruta predeterminada que redirige al usuario a la página de inicio
@@ -57,6 +59,8 @@ const routes: Routes = [
     HomeAdminComponent,
     HomePacienteComponent,
     MenuReportesComponent,
+    MenuSolicitarConsultaComponent,
+    ModalNuevoConsultaComponent,
   ],
   imports: [
     BrowserModule,

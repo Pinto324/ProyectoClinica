@@ -1,7 +1,6 @@
 package Controlador;
 
 import Servicios.EspecialidadesServicio;
-import Utilidades.GsonUtils;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Especialidades", urlPatterns = {"/Especialidades"})
 public class ControladorEspecialidades extends HttpServlet {
-    private EspecialidadesServicio ServicioEsp = new EspecialidadesServicio();
-    private Gson gson = new Gson();
+    private final EspecialidadesServicio ServicioEsp = new EspecialidadesServicio();
+    private final Gson gson = new Gson();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,6 +25,12 @@ public class ControladorEspecialidades extends HttpServlet {
         String accion = request.getParameter("accion");
         if (accion != null && accion.equals("obtenerEspecialidades")) {
             String jsonEspecialidades = gson.toJson(ServicioEsp.ListaEspecialidades());
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if (accion != null && accion.equals("obtenerDoctoresYEspecialidadesPacientes")) {
+            String jsonEspecialidades = gson.toJson(ServicioEsp.ListaEspecialidadesYDoctores());
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);

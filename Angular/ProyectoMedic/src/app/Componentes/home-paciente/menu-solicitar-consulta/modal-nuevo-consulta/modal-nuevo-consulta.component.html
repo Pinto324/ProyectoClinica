@@ -1,0 +1,37 @@
+<ng-container *ngIf="mostrar">
+    <div class="modalC">
+        <div class="modalC-content">
+            <div class="modalc-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" *ngIf="fechaLista" (click)="regresar()">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12H20V10H10.83l4.58-4.59z"/>
+                  </svg>
+                <h4 class="modalc-title">Crear una nueva consulta con: {{dato.Nombre}}</h4>
+                <svg *ngIf="fechaSirve"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" (click)="mostrar = false;">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </div>
+            <!-- Cuerpo  -->
+                <div class="modalC-container"> 
+                    <div class="divFecha" *ngIf="fechaSirve">
+                        <label>Ingrese la fecha que desea la consulta:</label>
+                        <input type="date" id="fecha" [(ngModel)]="FechaConsulta">
+                        <button (click)="enviarFecha()">Buscar horas disponible</button>
+                    </div>
+                    <div class="divCuerpoConsulta" *ngIf="fechaLista">
+                        <label>Ingese la hora a la que quiere que se agende la consulta:</label>
+                        <select  [(ngModel)]="horaSeleccionada">
+                            <option *ngFor="let horas of horasDisponibles" [value]="horasDisponibles">{{horasDisponibles}}</option>
+                        </select>
+                        <label>Ingese la especialidad por la que desea consultar:</label>
+                        <select (change)="PonerPrecio()" [(ngModel)]="especialidad">
+                            <option *ngFor="let especialidad of especialidades" [value]="especialidad.IdEspecialidad">{{especialidad.NombreEspecialidad}}</option>
+                        </select>
+                        <label>Precio de la consulta: Q{{precioConsulta}}</label>
+                        <button *ngIf="precioConsulta!=0.00">Añadir Consulta</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>          
+    </ng-container>
