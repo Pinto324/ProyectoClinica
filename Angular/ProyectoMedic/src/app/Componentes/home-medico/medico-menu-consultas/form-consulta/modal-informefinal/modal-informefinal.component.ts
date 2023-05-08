@@ -40,7 +40,6 @@ export class ModalInformefinalComponent {
       try {
         const response = await this.http.put<any>(`http://localhost:8080/Proyecto2Clinica/ControladorConsultas?accion=FinalizarConsulta&IdConsulta=${IdConsulta}&Informe=${Informe}`, body).toPromise();
         alert('Consulta finalizada correctamente.');
-        this.AgregarDineroMedico();
         this.componentCommunicationService.closeSecondComponent();
         this.cerrado.emit();
         this.CerrarModal();
