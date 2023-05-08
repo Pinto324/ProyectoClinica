@@ -7,16 +7,20 @@ package BaseDeDatos;
 
 import Objetos.Consultas;
 import Objetos.ConsultasHija;
+import Servicios.Medicos.PorcentajeConsultasServicio;
 import java.sql.Connection;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,6 +34,53 @@ public class ConsultasDB {
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
     public ConsultasDB() {
+    }
+    
+    //metodo para crear un consulta
+    public int CrearConsulta(int idIdPaciente, int idMedico, int idEspe, String fecha, double precio){
+        Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        PorcentajeConsultasServicio SC = new PorcentajeConsultasServicio();
+        double porcentaje = SC.BuscarPorcentajeComision(idEspe);
+        java.sql.Date fechaActual = new Date(System.currentTimeMillis());
+        java.util.Date fechaHora;
+        Timestamp timestamp;
+        int idConsulta = -1;
+        try {
+            fechaHora = formatter.parse(fecha);
+            timestamp = new Timestamp(fechaHora.getTime());
+        } catch (ParseException ex) {
+            Logger.getLogger(ConsultasDB.class.getName()).log(Level.SEVERE, null, ex);
+            return -3;
+        }
+        try {
+            sql = "insert into consultas (IdDelPacienteConsultas, IdDelMedicoConsultas, IdDeEspecialidadDelMedico, PorcentajeAPP, FechaCreacion, FechaAgendada,PrecioConsulta,InformeFinal,EstadoConsulta) values (?,?,?,?,?,?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idIdPaciente);
+            ps.setInt(2, idMedico);
+            ps.setInt(3, idEspe);
+            ps.setDouble(4, porcentaje);
+            ps.setDate(5, fechaActual);
+            ps.setTimestamp(6, timestamp);
+            ps.setDouble(7, precio);
+            ps.setString(8, null);
+            ps.setString(9, "AGENDADA");
+            ps.executeUpdate();    
+            ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    idConsulta = rs.getInt(1);
+                }
+            Con.CerrarConexiones();
+            Conn.close();
+            return idConsulta;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return -2;
     }
     public List<ConsultasHija> BuscarConsultasPendientesPorIdMedicoFecha(int cod, String fecha) throws ParseException{
         Con = new Conexion();
@@ -70,6 +121,28 @@ public class ConsultasDB {
                 U.close();
                 Con.CerrarConexiones();
                 return consultaLista;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    //Metodo para filtrar las horas ya ocupadas en alguna consulta
+        public List<String> FiltrarHorasParaConsulta(List<String> horas,String Fecha,int id){
+        Con = new Conexion();
+        try {
+            List<String> HorasDipsonibles = new ArrayList<>();
+            ResultSet U = null;
+            for(int i = 0; i < horas.size(); i++){
+                String fechaHora = Fecha + " " + horas.get(i) + ":00";
+                U = Con.IniciarConexion().executeQuery("SELECT * FROM Consultas WHERE FechaAgendada='"+fechaHora+"' AND IdDelMedicoConsultas ='"+id+"';");
+                if(U.next()){
+               }else{
+                    HorasDipsonibles.add(horas.get(i));
+                }
+            }  
+                U.close();
+                Con.CerrarConexiones();
+                return HorasDipsonibles;            
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -120,6 +193,39 @@ public class ConsultasDB {
                     java.sql.Date fechaHoraUtil = new java.sql.Date(fechaHora.getTime());
                     ConsultasHija cons = new ConsultasHija(U.getString (12), U.getString (15), U.getInt (1), U.getInt (2), U.getInt (3), U.getInt (4), U.getDouble(5), (Date) formato.parse(String.valueOf(U.getDate(6))), (Date) fechaHoraUtil, U.getDouble(8), U.getString (9),U.getString (10));
                     consultaLista.add(cons);
+                }
+                U.close();
+                Con.CerrarConexiones();
+                return consultaLista;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    //metodo para mostrar al paciente las consultas pendientes de revisión
+    public List<String> ConsultasRevisionExamenPaciente(int cod) throws ParseException{
+        Con = new Conexion();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM Consultas INNER JOIN Especialidades ON Especialidades.IdEspecialidades = IdDeEspecialidadDelMedico INNER JOIN UsuariosMedic ON UsuariosMedic.IdUsuario = IdDelMedicoConsultas WHERE EstadoConsulta='EXAMEN_PENDIENTE' AND IdDelPacienteConsultas ='"+cod+"';");
+            List<String> consultaLista;
+            consultaLista = new ArrayList<>();
+                while(U.next()){  
+                    String Dato = String.valueOf(U.getInt(U.findColumn("IdConsultas")));
+                    consultaLista.add(Dato);
+                    Dato = (U.getString(U.findColumn("NombreUsuario")));
+                    consultaLista.add(Dato);
+                    Dato = (U.getString(U.findColumn("NombreEspecialidad")));
+                    consultaLista.add(Dato);
+                    Dato = String.valueOf(U.getDouble(U.findColumn("PrecioConsulta")));
+                    consultaLista.add(Dato);
+                    Dato = String.valueOf(U.getTimestamp(U.findColumn("FechaAgendada")));
+                    consultaLista.add(Dato);
+                    Dato = (U.getString(U.findColumn("EstadoConsulta")));
+                    consultaLista.add(Dato);
+                    Dato = (U.getString(U.findColumn("Direccion")));
+                    consultaLista.add(Dato);
+                    Dato = (U.getString(U.findColumn("Telefono")));
+                    consultaLista.add(Dato);
                 }
                 U.close();
                 Con.CerrarConexiones();

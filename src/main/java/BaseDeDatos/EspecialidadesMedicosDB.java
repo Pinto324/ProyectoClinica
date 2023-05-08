@@ -78,7 +78,26 @@ public class EspecialidadesMedicosDB {
         }
         return null;
     }
-    
+    //metodo para ver las especialidades solo activas:
+        public List<EspecialidadHijaMedicos> ListaDeEspecialidadesPorIDyEstado(int id, String Estado){
+        Con = new Conexion();
+        List<EspecialidadHijaMedicos> ListaEspecialidades = new ArrayList<>();
+        ResultSet U;
+        try {
+            U = Con.IniciarConexion().executeQuery("SELECT * FROM EspecialidadesMedicos INNER JOIN Especialidades ON Especialidades.IdEspecialidades = IdEspecialidadEM WHERE EspecialidadesMedicos.EstadoEM = '"+Estado+"'  AND  EspecialidadesMedicos.IdDelMedicoEM = '"+id+"';");           
+                while(U.next()){  
+                    EspecialidadHijaMedicos NEspecialidadM;
+                    NEspecialidadM= new EspecialidadHijaMedicos(U.getInt (3),U.getInt(2),U.getDouble(4),U.getString(5),U.getInt(1),U.getString(7),U.getString(8));
+                    ListaEspecialidades.add(NEspecialidadM);
+                }
+                U.close();
+                Con.CerrarConexiones();
+                return ListaEspecialidades;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
     
     public boolean ModificarPrecio(int id, double Precio){
         try{
@@ -95,12 +114,12 @@ public class EspecialidadesMedicosDB {
             return false;
         }
     }
-    public List<String> ListaEspecialidadesYDoctores(){
+    public List<String> ListaEspecialidadesYDoctores(String Estado){
         Con = new Conexion();
         List<String> ListaString = new ArrayList<>();
         ResultSet U;
         try {
-            U = Con.IniciarConexion().executeQuery("SELECT * FROM especialidadesmedicos INNER JOIN especialidades ON especialidades.IdEspecialidades = IdEspecialidadEM INNER JOIN usuariosmedic ON usuariosmedic.IdUsuario = IdDelMedicoEM;");           
+            U = Con.IniciarConexion().executeQuery("SELECT * FROM especialidadesmedicos INNER JOIN especialidades ON especialidades.IdEspecialidades = IdEspecialidadEM INNER JOIN usuariosmedic ON usuariosmedic.IdUsuario = IdDelMedicoEM WHERE especialidadesmedicos.EstadoEM ='"+Estado+"' ;");           
                 while(U.next()){  
                     String dato;
                     dato = String.valueOf(U.getInt(U.findColumn("IdDelMedicoEM")));

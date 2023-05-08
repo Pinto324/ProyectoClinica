@@ -26,6 +26,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { MenuReportesComponent } from './menu-reportes/menu-reportes.component';
 import { MenuSolicitarConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/menu-solicitar-consulta.component';
 import { ModalNuevoConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/modal-nuevo-consulta/modal-nuevo-consulta.component';
+import { MenuConsultasPendientesComponent } from './Componentes/home-paciente/menu-consultas-pendientes/menu-consultas-pendientes.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Ruta predeterminada que redirige al usuario a la página de inicio
@@ -61,6 +62,7 @@ const routes: Routes = [
     MenuReportesComponent,
     MenuSolicitarConsultaComponent,
     ModalNuevoConsultaComponent,
+    MenuConsultasPendientesComponent,
   ],
   imports: [
     BrowserModule,

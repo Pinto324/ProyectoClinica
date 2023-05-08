@@ -30,7 +30,8 @@ public class ControladorEspecialidades extends HttpServlet {
             out.print(jsonEspecialidades);
             out.flush();
         }else if (accion != null && accion.equals("obtenerDoctoresYEspecialidadesPacientes")) {
-            String jsonEspecialidades = gson.toJson(ServicioEsp.ListaEspecialidadesYDoctores());
+            String estado = request.getParameter("Estado");          
+            String jsonEspecialidades = gson.toJson(ServicioEsp.ListaEspecialidadesYDoctores(estado));
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);

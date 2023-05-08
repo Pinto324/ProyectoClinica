@@ -27,4 +27,5 @@ public class UsuarioServicio {
     public List<Usuario> obtenerPacientes(){return DB.ListaPacientes();}
     public double ObtenerSaldo(int Id){return DB.ObtenerSaldoPorId(Id);}
     public boolean PagarSolicitud(double pagoLab, double pagoAdmin, int IdPagado){return DB.PagarSolicitud(pagoLab, pagoAdmin, IdPagado);}
+    public void RestarSaldoPaciente(int IdPaciente, double Saldo){DB.RestarConsulta(IdPaciente,Saldo);}
 }

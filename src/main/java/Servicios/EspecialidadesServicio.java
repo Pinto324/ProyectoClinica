@@ -23,9 +23,10 @@ public class EspecialidadesServicio {
     }
      public List<Especialidades> ListaEspecialidades(){ return DB.ListaDeEspecialidades();}
      public List<EspecialidadHijaMedicos> ListaEspecialidadesPorId(int id){return DBEM.ListaDeEspecialidadesPorID(id);}
+     public List<EspecialidadHijaMedicos> ListaEspecialidadesPorIdyEstado(int id, String Estado){return DBEM.ListaDeEspecialidadesPorIDyEstado(id, Estado);}
      public boolean ActualizarPrecioPorId(int id, double precio){return DBEM.ModificarPrecio(id, precio);}
      public int BuscarIdEspecialidadPorNombre(String Nombre){return DB.BuscarIdEspecialidadPorNombre(Nombre);}
      public boolean EvitarRepetirEspecialidad(EspecialidadesMedicos e){return DBEM.EvitarRepetirEspecialidad(e);}
     public void CrearEspecialidadMedico(EspecialidadesMedicos e){DBEM.CrearUsuario(e);}
-    public List<String> ListaEspecialidadesYDoctores(){return DBEM.ListaEspecialidadesYDoctores();}
+    public List<String> ListaEspecialidadesYDoctores(String Estado){return DBEM.ListaEspecialidadesYDoctores(Estado);}
 }

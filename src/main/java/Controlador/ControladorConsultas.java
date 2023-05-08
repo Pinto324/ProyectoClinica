@@ -5,13 +5,19 @@
  */
 package Controlador;
 
+import BaseDeDatos.Medicos.PorcentajeConsultasDB;
+import Objetos.Medicos.Horario;
 import Servicios.ConsultasServicio;
+import Servicios.Medicos.PorcentajeConsultasServicio;
+import Servicios.UsuarioServicio;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -70,8 +76,46 @@ public class ControladorConsultas extends HttpServlet {
                 out.print(jsonEspecialidades);
                 out.flush();
             } catch (ParseException ex) {response.sendError(HttpServletResponse.SC_BAD_REQUEST);}
+        }else if(accion != null && accion.equals("ConsultasRevisionExamenPaciente")){
+            try {
+                int IdPaciente = Integer.valueOf(request.getParameter("IdPaciente"));
+                String jsonEspecialidades = gson.toJson(CS.ConsultasRevisionDeExamenPaciente(IdPaciente));
+                response.setContentType("application/json");
+                PrintWriter out = response.getWriter();
+                out.print(jsonEspecialidades);
+                out.flush();
+            } catch (ParseException ex) {response.sendError(HttpServletResponse.SC_BAD_REQUEST);}
         }
     }
+    
+    //POST
+     @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        String accion = request.getParameter("accion");
+        if (accion != null && accion.equals("CrearConsulta")) {    
+            int IdPaciente = Integer.valueOf(request.getParameter("IdPaciente"));
+            int IdMedico = Integer.valueOf(request.getParameter("IdMedico"));
+            int IdEspecialidad = Integer.valueOf(request.getParameter("IdEspecialidad"));
+            String FechaAgendada = request.getParameter("FechaAgendada");
+            double precio = Double.valueOf(request.getParameter("Precio"));
+            UsuarioServicio US = new UsuarioServicio();
+            PorcentajeConsultasServicio porcentaje = new PorcentajeConsultasServicio();
+            if(US.ObtenerSaldo(IdPaciente)>=precio){
+                int idConsulta = CS.CrearConsulta(IdPaciente, IdMedico, IdEspecialidad, FechaAgendada, precio);
+                if(idConsulta>0){
+                    UsuarioServicio pagar = new UsuarioServicio();
+                    pagar.PagarAlDoyAdmin(IdMedico, precio, porcentaje.BuscarPorcentajeComision(IdEspecialidad), idConsulta);
+                    pagar.RestarSaldoPaciente(IdPaciente, precio);
+                    response.setStatus(HttpServletResponse.SC_CREATED);
+                }else{ response.setStatus(HttpServletResponse.SC_BAD_REQUEST);}
+            }else{
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+            }
+            
+        } 
+    }
+    
        // PUT /
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -63,7 +63,7 @@ export class FormConsultaComponent {
   }
   ManejarBotones(){
     switch (this.datos.Estado) {
-      case "PENDIENTE":
+      case "AGENDADA":
         this.pendiente = true;
         break;
       case "PENDIENTE_REVISION":

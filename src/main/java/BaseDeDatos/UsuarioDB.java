@@ -192,6 +192,20 @@ public class UsuarioDB {
             return false;
         }
     }
+    //Restar saldo al paciente
+    public void RestarConsulta(int Paciente, double pago){
+        try{
+            Con = new Conexion();
+            Con.IniciarConexion();
+            //Envia el pago al medico
+            String Ssql = "UPDATE usuariosmedic SET Saldo=Saldo - ? WHERE IdUsuario=?";
+            PreparedStatement cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setDouble(1, pago);
+            cambio.setInt(2, Paciente);
+            cambio.executeUpdate();
+        }catch(SQLException e){
+        }
+    }
     //metodo para obtener el saldo de un usuario:
     public double ObtenerSaldoPorId(int Id){
         Con = new Conexion();

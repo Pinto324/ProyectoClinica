@@ -23,7 +23,7 @@
                         <img src="https://cdn-icons-png.flaticon.com/512/1469/1469975.png" width="60" height="60">
                         <label>Solicitar una consulta</label>
                     </a>
-                    <a  class="nav-link">
+                    <a (click)="abrirMenuConsultaPendiente()"  class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/5897/5897458.png" width="60" height="60">
                         <label>Ver Consultas pendientes</label>
                     </a>
@@ -56,6 +56,7 @@
                     <button type="button" (click)="Recargar()">Recargar</button>
                 </div>
                 <app-menu-solicitar-consulta *ngIf="ConsultaNueva"></app-menu-solicitar-consulta>
+                <app-menu-consultas-pendientes *ngIf="ConsultaPendiente"></app-menu-consultas-pendientes>
             </div>
         </section>
     </body>

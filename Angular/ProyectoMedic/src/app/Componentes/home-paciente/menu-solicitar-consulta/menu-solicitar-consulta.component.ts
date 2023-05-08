@@ -26,7 +26,7 @@ export class MenuSolicitarConsultaComponent {
   }
   // metodo get
   getInfo() {
-    const url = 'http://localhost:8080/Proyecto2Clinica/Especialidades?accion=obtenerDoctoresYEspecialidadesPacientes';
+    const url = 'http://localhost:8080/Proyecto2Clinica/Especialidades?accion=obtenerDoctoresYEspecialidadesPacientes&Estado=Activa';
     return this.http.get<any[]>(url);
   }
 //metodo que llena la tabla

@@ -1,0 +1,29 @@
+<div>
+      <table>
+          <thead>
+            <tr>
+              <th>Nombre Del Medico</th>
+              <th>Especialidad consultada</th>
+              <th>Precio pagado</th>
+              <th>Fecha en la que se agendo</th>
+              <th>Teléfono</th>
+              <th>Correo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fila of Consulta">
+              <td>{{ fila.NombreDoc }}</td>
+              <td>{{ fila.Especialidad }}</td>
+              <td>Q{{ fila.precio }}</td>
+              <td>{{ fila.Fecha }}</td>
+              <td>{{ fila.Telefono }}</td>
+              <td>{{ fila.Correo }}</td>
+              <td>{{ fila.Estado }}</td>
+              <td><button (click)="modal.showModalInicial(fila)">Subir Examenes</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <app-modal-agregar-examenes #modal (dialogoCerrado)="ngOnInit()"></app-modal-agregar-examenes>    
+  </div>
+  
