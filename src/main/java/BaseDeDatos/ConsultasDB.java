@@ -115,7 +115,7 @@ public class ConsultasDB {
                 while(U.next()){  
                     Timestamp fechaHora = U.getTimestamp(7);
                     java.sql.Date fechaHoraUtil = new java.sql.Date(fechaHora.getTime());
-                    ConsultasHija cons = new ConsultasHija(U.getString (12), U.getString (15), U.getInt (1), U.getInt (2), U.getInt (3), U.getInt (4), U.getDouble(5), (Date) formato.parse(String.valueOf(U.getDate(6))), (Date) fechaHoraUtil, U.getDouble(8), U.getString (9),U.getString (10));
+                    ConsultasHija cons = new ConsultasHija(U.getString (12), U.getString (15), U.getInt (1), U.getInt (2), U.getInt (3), U.getInt (4), U.getDouble(5), (java.util.Date) formato.parse(String.valueOf(U.getDate(6))), (Date) fechaHoraUtil, U.getDouble(8), U.getString (9),U.getString (10));
                     consultaLista.add(cons);
                 }
                 U.close();
@@ -191,7 +191,7 @@ public class ConsultasDB {
                 while(U.next()){  
                     Timestamp fechaHora = U.getTimestamp(7);
                     java.sql.Date fechaHoraUtil = new java.sql.Date(fechaHora.getTime());
-                    ConsultasHija cons = new ConsultasHija(U.getString (12), U.getString (15), U.getInt (1), U.getInt (2), U.getInt (3), U.getInt (4), U.getDouble(5), (Date) formato.parse(String.valueOf(U.getDate(6))), (Date) fechaHoraUtil, U.getDouble(8), U.getString (9),U.getString (10));
+                    ConsultasHija cons = new ConsultasHija(U.getString (12), U.getString (15), U.getInt (1), U.getInt (2), U.getInt (3), U.getInt (4), U.getDouble(5), (java.util.Date) formato.parse(String.valueOf(U.getDate(6))), (Date) fechaHoraUtil, U.getDouble(8), U.getString (9),U.getString (10));
                     consultaLista.add(cons);
                 }
                 U.close();
@@ -222,7 +222,7 @@ public class ConsultasDB {
                     consultaLista.add(Dato);
                     Dato = (U.getString(U.findColumn("EstadoConsulta")));
                     consultaLista.add(Dato);
-                    Dato = (U.getString(U.findColumn("Direccion")));
+                    Dato = (U.getString(U.findColumn("Email")));
                     consultaLista.add(Dato);
                     Dato = (U.getString(U.findColumn("Telefono")));
                     consultaLista.add(Dato);

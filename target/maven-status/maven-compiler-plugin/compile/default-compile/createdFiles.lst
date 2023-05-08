@@ -7,6 +7,7 @@ Objetos\Laboratorios\TipoDeExamen.class
 BaseDeDatos\Conexion.class
 Controlador\Laboratorios\ControladorExamenesLaboratorios.class
 Objetos\Consultas.class
+Servicios\Medicos\PorcentajeConsultasServicio.class
 Controlador\ControladorDeReportes.class
 BaseDeDatos\SolicitudDeLaboratorioDB.class
 BaseDeDatos\EspecialidadesMedicosDB.class
@@ -20,7 +21,6 @@ BaseDeDatos\Reportes\GananciaGeneradaMedicosDB.class
 Controlador\ControladorDeExamenes.class
 Controlador\Laboratorios\ControladorExamenesSolicitudes.class
 Objetos\Medicos\Horario.class
-Controlador\ControladorHorario.class
 Objetos\Especialidades.class
 Objetos\Usuario.class
 Objetos\PorcentajeDeCobroAppExamenes.class
@@ -41,6 +41,7 @@ Servicios\ConsultasServicio.class
 Servicios\ExamenesConsultasServicio.class
 Controlador\ControladorUsuario.class
 Objetos\ExamenesSolicitadosConsultas.class
+BaseDeDatos\Medicos\PorcentajeConsultasDB.class
 Utilidades\ArchivoPDF.class
 Servicios\Laboratorios\SolicitudesServicio.class
 Servicios\Medicos\HorariosServicio.class
@@ -48,5 +49,7 @@ Controlador\ControladorTipoDeExamenes.class
 Objetos\ConsultasHija.class
 BaseDeDatos\ExamenesConsultas.class
 Objetos\Medicos\EspecialidadesMedicos.class
+Controlador\Medicos\ControladorExamenesDeConsultas.class
 Servicios\EspecialidadesServicio.class
 Servicios\Reportes\GananciaGeneradaMedicosServicio.class
+Controlador\Medicos\ControladorHorario.class

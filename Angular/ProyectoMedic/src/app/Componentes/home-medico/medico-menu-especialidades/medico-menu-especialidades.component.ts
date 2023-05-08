@@ -28,7 +28,7 @@ export class MedicoMenuEspecialidadesComponent implements OnInit {
     return this.http.get<any[]>(url);
   }
   getEspecialidadesAgregadas() {
-    const url = 'http://localhost:8080/Proyecto2Clinica/EspecialidadesMedico?accion=obtenerEspecialidadesAgregadas&IdMedico='+this.UserService.getId();
+    const url = 'http://localhost:8080/Proyecto2Clinica/EspecialidadesMedico?accion=obtenerEspecialidadesAgregadasMedicos&IdMedico='+this.UserService.getId();
     return this.http.get<any[]>(url);
   }
   //Metodo que se encarga de editar el precio de una especialidad

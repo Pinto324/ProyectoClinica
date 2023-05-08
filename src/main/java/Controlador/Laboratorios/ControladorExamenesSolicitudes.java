@@ -27,7 +27,6 @@ import javax.servlet.http.Part;
 @WebServlet(name = "ControladorExamenesSolicitudes", urlPatterns = {"/ControladorExamenesSolicitudes"})
 public class ControladorExamenesSolicitudes extends HttpServlet {
     private final ExamenesDeUnaSolicitudServicio servicio = new ExamenesDeUnaSolicitudServicio();
-    private final UsuarioServicio Pagos = new UsuarioServicio();
     private final Gson gson = new Gson();
     
         //GET:

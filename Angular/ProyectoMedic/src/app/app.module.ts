@@ -27,6 +27,7 @@ import { MenuReportesComponent } from './menu-reportes/menu-reportes.component';
 import { MenuSolicitarConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/menu-solicitar-consulta.component';
 import { ModalNuevoConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/modal-nuevo-consulta/modal-nuevo-consulta.component';
 import { MenuConsultasPendientesComponent } from './Componentes/home-paciente/menu-consultas-pendientes/menu-consultas-pendientes.component';
+import { ModalPacienteExamenesConsultasComponent } from './Componentes/home-paciente/menu-consultas-pendientes/modal-paciente-examenes-consultas/modal-paciente-examenes-consultas.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Ruta predeterminada que redirige al usuario a la página de inicio
@@ -63,6 +64,7 @@ const routes: Routes = [
     MenuSolicitarConsultaComponent,
     ModalNuevoConsultaComponent,
     MenuConsultasPendientesComponent,
+    ModalPacienteExamenesConsultasComponent,
   ],
   imports: [
     BrowserModule,

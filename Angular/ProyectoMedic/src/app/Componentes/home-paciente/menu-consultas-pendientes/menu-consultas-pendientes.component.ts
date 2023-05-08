@@ -13,10 +13,10 @@ export class MenuConsultasPendientesComponent {
   Info: any = {};
 
   constructor(private http: HttpClient , private UserService: UserService) { }
+  
   ngOnInit() {
     this.getConsultas().subscribe(consultas => {
       this.Info = consultas;
-      console.log(this.Info);
       this.llenarTabla();
     });
   }
@@ -28,7 +28,7 @@ export class MenuConsultasPendientesComponent {
   llenarTabla(){
     for (let i = 0; i < this.Info.length; i += 8) {
       this.Consulta.push({
-        IdSolicitud: this.Info[i],
+        IdConsulta: this.Info[i],
         NombreDoc: this.Info[i + 1],
         Especialidad: this.Info[i + 2],
         precio: this.Info[i + 3],
@@ -38,5 +38,6 @@ export class MenuConsultasPendientesComponent {
         Telefono: this.Info[i + 7]
       });
     }
+    console.log(this.Consulta);
   }
 }

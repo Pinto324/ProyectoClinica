@@ -44,6 +44,13 @@ public class ControladorEspecialidadesMedico extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
+        }else if(accion != null && accion.equals("obtenerEspecialidadesAgregadasMedicos")){
+            int Id = Integer.valueOf(request.getParameter("IdMedico"));          
+            String jsonEspecialidades = gson.toJson(ServicioEsp.ListaEspecialidadesPorId(Id));
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
         }
     }
    // PUT /

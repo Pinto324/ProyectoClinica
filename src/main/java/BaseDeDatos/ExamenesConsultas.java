@@ -115,4 +115,53 @@ public class ExamenesConsultas {
             return false;
         }
     }
+        //lista de nombre de los examenes en una solicitud
+    public List<String> ListaDeExamenesPorEditadoIDConsulta(int IdConsulta){
+        Con = new Conexion();
+        List<String> ListaExamenesConsulta = new ArrayList<>();
+        ResultSet U;
+        try {
+            U = Con.IniciarConexion().executeQuery("SELECT * FROM examenessolicitadosenlasconsultas INNER JOIN TipoDeExamenes ON TipoDeExamenes.IdTipoDeExamenes = IdExamenEC WHERE IdConsultaEC = '"+IdConsulta+"';");           
+                while(U.next()){  
+                    String Examen = U.getString(7);
+                    ListaExamenesConsulta.add(Examen);
+                    if(U.getString(5)==null){
+                        Examen = "No";
+                    }else{
+                        Examen = U.getString(5);
+                    }
+                    ListaExamenesConsulta.add(Examen);
+                    Examen = String.valueOf(U.getInt(1));
+                    ListaExamenesConsulta.add(Examen);
+                }
+                U.close();
+                Con.CerrarConexiones();
+                return ListaExamenesConsulta;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    //metodo para meter el archivo en la solicitud de examen:
+    public boolean SubirArchivoPDF(int Id, byte[] cuerpo,String Nombre){
+        Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "UPDATE examenessolicitadosenlasconsultas SET ArchivoExamen=?, NombreArchivo=? WHERE IdEC=?;";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setBytes(1, cuerpo);
+            ps.setString(2, Nombre);
+            ps.setInt(3, Id);
+            ps.executeUpdate();         
+            Con.CerrarConexiones();
+            Conn.close();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 }

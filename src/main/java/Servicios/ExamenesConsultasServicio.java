@@ -25,4 +25,6 @@ public class ExamenesConsultasServicio {
     public boolean EliminarSolicitud(ExamenesSolicitadosConsultas e){return DB.EliminarUsuario(e);}
     public void CrearExamenSolicitado(ExamenesSolicitadosConsultas e){DB.CrearExamenSolicitudConsulta(e);}
     public List<ArchivoPDF> ListaDePdf(int id){return DB.ListaDePdfs(id);}
+    public List<String> ListaDeExamenes(int Idconsulta){return DB.ListaDeExamenesPorEditadoIDConsulta(Idconsulta);}
+    public boolean SubirPdf(int Id, byte[] cuerpo, String nombre){return DB.SubirArchivoPDF(Id, cuerpo, nombre);}
 }

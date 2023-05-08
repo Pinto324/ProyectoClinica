@@ -12,17 +12,20 @@ C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Control
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\EspecialidadesDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\Consultas.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servicios\Laboratorios\ExamenesDeUnaSolicitudServicio.java
+C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servicios\Medicos\PorcentajeConsultasServicio.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\ConsultasDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\Laboratorios\TipoDeExamen.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Utilidades\GsonUtils.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\Medicos\EspecialidadesMedicos.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorExamenesConsultas.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\Laboratorios\ExamenesDeSolicitudDB.java
+C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\Medicos\ControladorHorario.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorEspecialidadesMedico.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\Laboratorios\TipoDeExamenDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\Laboratorios\ControladorExamenesLaboratorios.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorDeExamenes.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorDeReportes.java
+C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\Medicos\ControladorExamenesDeConsultas.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servicios\ExamenesConsultasServicio.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\EspecialidadesMedicosDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Utilidades\ServletUtils.java
@@ -30,7 +33,6 @@ C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servici
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\EspecialidadHijaMedicos.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\Especialidades.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\Medicos\HorariosMedicosDB.java
-C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorHorario.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\Conexion.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servicios\UsuarioServicio.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Utilidades\ArchivoPDF.java
@@ -39,6 +41,7 @@ C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Control
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\SolicitudDeLaboratorioDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servicios\ConsultasServicio.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\UsuarioDB.java
+C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\Medicos\PorcentajeConsultasDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\ExamenesSolicitadosConsultas.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorLogin.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\Laboratorios\ControladorExamenesSolicitudes.java
