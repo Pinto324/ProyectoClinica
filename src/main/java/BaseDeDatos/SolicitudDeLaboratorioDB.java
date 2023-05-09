@@ -5,12 +5,20 @@
  */
 package BaseDeDatos;
 
+import Servicios.Medicos.PorcentajeConsultasServicio;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -64,5 +72,51 @@ public class SolicitudDeLaboratorioDB {
             return false;
         }
     }
-    
+    //metodo para crear una solicitud:
+        public int CrearSolicitud(int Idlab, int IdPaciente, String Estado){
+        Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        java.sql.Date fechaActual = new Date(System.currentTimeMillis());
+        int idSolicitud = -1;
+        try {
+            sql = "insert into solicitudlaboratorio (IdDelPacienteSL, IdDelLaboratorioSL, PorcentajeAppSL, FechaSolicitadoSL, EstadoSL) values (?,?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, IdPaciente);
+            ps.setInt(2, Idlab);
+            ps.setDouble(3, 0.00);
+            ps.setDate(4, fechaActual);
+            ps.setString(5, Estado);
+            ps.executeUpdate();    
+            ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    idSolicitud = rs.getInt(1);
+                }
+            Con.CerrarConexiones();
+            Conn.close();
+            return idSolicitud;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return -2;
+    }
+            //querry para oficializar el estado de una solicitud:
+    public boolean OficializarSolicitud(int id){
+        try{
+            Con = new Conexion();
+            Con.IniciarConexion();
+            String Ssql = "UPDATE solicitudlaboratorio SET EstadoSL=? WHERE IdSolicitudLaboratorio=?";
+            PreparedStatement cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setString(1, "PENDIENTE");
+            cambio.setInt(2, id);
+            cambio.executeUpdate();
+            Con.CerrarConexiones();
+            return true; 
+        }catch(SQLException e){
+            return false;
+        }
+    }
 }

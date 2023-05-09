@@ -14,6 +14,7 @@ BaseDeDatos\EspecialidadesMedicosDB.class
 BaseDeDatos\EspecialidadesDB.class
 Controlador\ControladorConsultas.class
 BaseDeDatos\Medicos\HorariosMedicosDB.class
+Servicios\Laboratorios\PorcentajeSolicitudServicio.class
 BaseDeDatos\Laboratorios\TipoDeExamenDB.class
 Objetos\Laboratorios\ExamenesLaboratorios.class
 Servicios\UsuarioServicio.class
@@ -23,6 +24,7 @@ Controlador\Laboratorios\ControladorExamenesSolicitudes.class
 Objetos\Medicos\Horario.class
 Objetos\Especialidades.class
 Objetos\Usuario.class
+BaseDeDatos\Laboratorios\PorcentajeExamenesDB.class
 Objetos\PorcentajeDeCobroAppExamenes.class
 Utilidades\GsonUtils.class
 BaseDeDatos\ConsultasDB.class

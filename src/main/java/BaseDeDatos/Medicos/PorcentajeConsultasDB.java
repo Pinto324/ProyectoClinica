@@ -25,7 +25,7 @@ public class PorcentajeConsultasDB {
     public double BuscarPorcentajeComision(int IdEspecialidad){
         Con = new Conexion();
         try {
-            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM porcentajedecobroappconsultas WHERE IdDeEspecialidadPorcentaje='"+IdEspecialidad+"';");
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM porcentajedecobroappconsultas WHERE IdDeEspecialidadPorcentaje='"+IdEspecialidad+"' AND Activa=true;");
             double porciento;
                 if(U.next()){  
                     porciento = U.getDouble(3);

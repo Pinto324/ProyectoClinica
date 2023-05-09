@@ -35,15 +35,15 @@ public class ExamenesSolicitudesDB {
         try {
             U = Con.IniciarConexion().executeQuery("SELECT * FROM examenessolicitadosenlaboratorio INNER JOIN TipoDeExamenes ON TipoDeExamenes.IdTipoDeExamenes = IdExamenESL WHERE IdSolicitudLaboratorioESL = '"+IdSolicitud+"';");           
                 while(U.next()){  
-                    String Examen = U.getString(7);
+                    String Examen = U.getString(U.findColumn("NombreExamen"));
                     ListaExamenesConsulta.add(Examen);
-                    if(U.getString(5)==null){
+                    if(U.getString(U.findColumn("NombreDeArchivoESL"))==null){
                         Examen = "No";
                     }else{
-                        Examen = U.getString(5);
+                        Examen = U.getString(U.findColumn("NombreDeArchivoESL"));
                     }
                     ListaExamenesConsulta.add(Examen);
-                    Examen = String.valueOf(U.getInt(1));
+                    Examen = String.valueOf(U.getInt(U.findColumn("IdESL")));
                     ListaExamenesConsulta.add(Examen);
                 }
                 U.close();
@@ -102,5 +102,43 @@ public class ExamenesSolicitudesDB {
         }
         return false;
     }
-    
+    //crear examen en una solicitud:
+    public void CrearExamenSolicitudConsulta(int IdSolicitud, int idExamen){
+    Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into examenessolicitadosenlaboratorio (IdSolicitudLaboratorioESL, IdExamenESL) values (?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, IdSolicitud);
+            ps.setInt(2, idExamen);
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+         //lista de nombre de los examenes en una solicitud
+    public boolean EvitarRepetirExamen(int IdSolicitud, int IdExamen){
+        Con = new Conexion();
+        ResultSet U;
+        try {
+            U = Con.IniciarConexion().executeQuery("SELECT * FROM examenessolicitadosenlaboratorio INNER JOIN TipoDeExamenes ON TipoDeExamenes.IdTipoDeExamenes = IdExamenESL WHERE IdSolicitudLaboratorioESL = '"+IdSolicitud+"' AND IdExamenESL='"+IdExamen +"';");           
+                if(U.next()){  
+                    U.close();
+                    Con.CerrarConexiones();  
+                    return false;
+                }else{
+                    U.close();
+                    Con.CerrarConexiones();  
+                    return true;
+                }                         
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
 }

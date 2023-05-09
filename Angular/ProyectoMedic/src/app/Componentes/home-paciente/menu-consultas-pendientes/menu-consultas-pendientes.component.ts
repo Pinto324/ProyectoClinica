@@ -38,6 +38,5 @@ export class MenuConsultasPendientesComponent {
         Telefono: this.Info[i + 7]
       });
     }
-    console.log(this.Consulta);
   }
 }

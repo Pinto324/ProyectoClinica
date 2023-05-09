@@ -19,4 +19,6 @@ public class SolicitudesServicio {
     }
     public List<String> SolicitudesLabPorId(int id){return DB.ListaSolicitudesLab(id);}
     public boolean finalizarSolicitud(int Id){return DB.FinalizarSolicitud(Id);}
+    public int CrearSolicitud(int IdLab, int IdPaciente, String Estado){return DB.CrearSolicitud(IdLab, IdPaciente, Estado);}
+    public void OficializarSolicitud(int Id){DB.OficializarSolicitud(Id);}
 }

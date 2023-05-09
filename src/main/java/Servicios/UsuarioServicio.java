@@ -24,6 +24,7 @@ public class UsuarioServicio {
     public void ActualizarUsuario(Usuario u){DB.ModificarDatos(u);}
     public boolean ComprobarSiExisteUsuario(int cod){return (DB.BuscarPorCodigo(cod)==null);}
     public boolean PagarAlDoyAdmin(int id, double precio, double porcentaje, int IdConsulta){return DB.Pagar(id,precio,porcentaje,IdConsulta);}
+    public boolean PagarAlLab(int IdPagado, double precio, double porcentaje, int IdSoli, int idExamen){return DB.PagarALaboratorio(IdPagado, precio, porcentaje, IdSoli, idExamen);}
     public List<Usuario> obtenerPacientes(){return DB.ListaPacientes();}
     public double ObtenerSaldo(int Id){return DB.ObtenerSaldoPorId(Id);}
     public boolean PagarSolicitud(double pagoLab, double pagoAdmin, int IdPagado){return DB.PagarSolicitud(pagoLab, pagoAdmin, IdPagado);}

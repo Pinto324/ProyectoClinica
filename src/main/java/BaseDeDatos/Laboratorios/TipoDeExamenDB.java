@@ -29,7 +29,7 @@ public class TipoDeExamenDB {
         Con = new Conexion();
         List<TipoDeExamen> ListaExamenes = new ArrayList<>();
         try {
-            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM TipoDeExamenes");
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM TipoDeExamenes WHERE EstadoExamen = True");
             while(U.next()){  
                 TipoDeExamen Examen;
                 Examen= new TipoDeExamen(U.getInt (1),U.getString (2),U.getString (3));
@@ -89,7 +89,7 @@ public class TipoDeExamenDB {
         Con = new Conexion();
         List<String> Info = new ArrayList<>();
         try {
-            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios INNER JOIN tipodeexamenes ON tipodeexamenes.IdTipoDeExamenes = IdExamenEL WHERE (exameneslaboratorios.EstadoEL = 'Activa' OR exameneslaboratorios.EstadoEL = 'Pendiente') AND  exameneslaboratorios.IdDelLabEL = '"+idLab+"';");
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios INNER JOIN tipodeexamenes ON tipodeexamenes.IdTipoDeExamenes = IdExamenEL WHERE (exameneslaboratorios.EstadoEL = 'Activa' OR exameneslaboratorios.EstadoEL = 'Pendiente')  AND  exameneslaboratorios.IdDelLabEL = '"+idLab+"';");
             while(U.next()){ 
                 String dato;
                 dato = String.valueOf(U.getInt(1));
@@ -109,6 +109,32 @@ public class TipoDeExamenDB {
         }
         return null;
     }
+        //devuelve una lista de datos de los examenes de un lab especifico
+    public List<String> LabConInfo(){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios INNER JOIN usuariosmedic ON usuariosmedic.IdUsuario = IdDelLabEL;");
+            while(U.next()){ 
+                String dato;
+                dato = String.valueOf(U.getInt(U.findColumn("IdDelLabEL")));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreUsuario"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Telefono"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Email"));
+                Info.add(dato); 
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    
     //Metodo para modificar el precio de un examen asignado al laboratorio
     public boolean ModificarPrecio(int id, double Precio){
         try{

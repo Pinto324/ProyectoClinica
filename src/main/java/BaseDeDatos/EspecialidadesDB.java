@@ -30,7 +30,7 @@ public class EspecialidadesDB {
         Con = new Conexion();
         List<Especialidades> ListaEspecialidades = new ArrayList<>();
         try {
-            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM Especialidades");
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM Especialidades where EstadoExamen = true");
             while(U.next()){  
                 Especialidades NEspecialidadM;
                 NEspecialidadM= new Especialidades(U.getInt (1),U.getString (2),U.getString (3));

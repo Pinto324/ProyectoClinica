@@ -7,6 +7,7 @@ package BaseDeDatos;
 
 import Objetos.Especialidades;
 import Objetos.Usuario;
+import Servicios.Reportes.GananciaGeneradaLabsServicio;
 import Servicios.Reportes.GananciaGeneradaMedicosServicio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -163,6 +164,34 @@ public class UsuarioDB {
             //Para el reporte de administración y medico:
             GananciaGeneradaMedicosServicio Servicio = new GananciaGeneradaMedicosServicio();
             Servicio.IngresarGanancia(IdConsulta, cobroApp, CobroFinal);
+            Con.CerrarConexiones();
+            return true; 
+        }catch(SQLException e){
+            return false;
+        }
+    }
+        //metodo que paga las consultas 
+    public boolean PagarALaboratorio(int IdPagado, double pago, double porcentaje,int IdSolicitud,int IdExamen){
+        double cobroApp = (pago*porcentaje);
+        double CobroFinal = (pago-cobroApp);
+        try{
+            Con = new Conexion();
+            Con.IniciarConexion();
+            //Envia el pago al medico
+            String Ssql = "UPDATE usuariosmedic SET Saldo=Saldo + ? WHERE IdUsuario=?";
+            PreparedStatement cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setDouble(1, CobroFinal);
+            cambio.setInt(2, IdPagado);
+            cambio.executeUpdate();
+            //Envia el pago Al Admin
+            Ssql = "UPDATE usuariosmedic SET Saldo=Saldo + ? WHERE Tipo=?";
+            cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setDouble(1, cobroApp);
+            cambio.setString(2, "Admin");
+            cambio.executeUpdate();
+            //Para el reporte de administración y Lab:
+            GananciaGeneradaLabsServicio Servicio = new GananciaGeneradaLabsServicio();
+            Servicio.IngresarGanancia(IdSolicitud, cobroApp, CobroFinal,IdExamen);
             Con.CerrarConexiones();
             return true; 
         }catch(SQLException e){

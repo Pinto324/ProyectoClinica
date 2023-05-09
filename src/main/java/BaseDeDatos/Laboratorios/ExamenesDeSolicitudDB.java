@@ -23,22 +23,20 @@ public class ExamenesDeSolicitudDB {
     public ExamenesDeSolicitudDB() {
     }
     
-    //devuelve una lista de datos de los examenes de un lab especifico
-    public List<String> ListaExamenesLab(int idLab){
+        //devuelve una lista de datos de los examenes de un lab para hacer una solicitud
+    public List<String> ListaExamenesSolicitudes(int idLab){
         Con = new Conexion();
         List<String> Info = new ArrayList<>();
         try {
-            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios INNER JOIN tipodeexamenes ON tipodeexamenes.IdTipoDeExamenes = IdExamenEL WHERE (exameneslaboratorios.EstadoEL = 'Activa' OR exameneslaboratorios.EstadoEL = 'Pendiente') AND  exameneslaboratorios.IdDelLabEL = '"+idLab+"';");
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios INNER JOIN tipodeexamenes ON tipodeexamenes.IdTipoDeExamenes = IdExamenEL WHERE exameneslaboratorios.EstadoEL = 'Activa' AND  exameneslaboratorios.IdDelLabEL = '"+idLab+"';");
             while(U.next()){ 
                 String dato;
-                dato = String.valueOf(U.getInt(1));
+                dato = String.valueOf(U.getInt(U.findColumn("IdEL")));
                 Info.add(dato);
-                dato = U.getString(7);
+                dato = U.getString(U.findColumn("NombreExamen"));
                 Info.add(dato);
-                dato = String.valueOf(U.getDouble(4));
+                dato = String.valueOf(U.getDouble(U.findColumn("PrecioExamen")));
                 Info.add(dato);
-                dato = U.getString(5);
-                Info.add(dato); 
             }
                 U.close();
                 Con.CerrarConexiones();
@@ -48,4 +46,5 @@ public class ExamenesDeSolicitudDB {
         }
         return null;
     }
+    
 }

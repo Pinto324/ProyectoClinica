@@ -5,6 +5,7 @@
  */
 package Controlador.Laboratorios;
 
+import BaseDeDatos.Laboratorios.ExamenesDeSolicitudDB;
 import Objetos.Laboratorios.ExamenesLaboratorios;
 import Objetos.Medicos.EspecialidadesMedicos;
 import Servicios.Laboratorios.ExamenesServicio;
@@ -36,6 +37,20 @@ public class ControladorExamenesLaboratorios extends HttpServlet {
         if(accion != null && accion.equals("obtenerExamenesAsignados")) {
             int IdLab = Integer.valueOf(request.getParameter("IdLab"));
             String jsonEspecialidades = gson.toJson(Servicio.ListaDeExamenesPorId(IdLab));
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("obtenerExamenesConTelefono")) {
+            String jsonEspecialidades = gson.toJson(Servicio.ListaDeExamenesConInfoID());
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("obtenerExamenesDelLabParaSolicitud")){
+            int IdLab = Integer.valueOf(request.getParameter("IdLab"));
+            String jsonEspecialidades = gson.toJson(Servicio.ListaDeExamenesParaCrearSolicitud(IdLab));
+            System.out.println(jsonEspecialidades);
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);

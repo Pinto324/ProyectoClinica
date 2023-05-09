@@ -6,6 +6,7 @@
 package Controlador.Laboratorios;
 
 import Servicios.Laboratorios.ExamenesDeUnaSolicitudServicio;
+import Servicios.Laboratorios.PorcentajeSolicitudServicio;
 import Servicios.UsuarioServicio;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -59,6 +60,23 @@ public class ControladorExamenesSolicitudes extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_CREATED);
             }else{
                 response.sendError(HttpServletResponse.SC_CONFLICT);
+            }
+        }else if(accion != null && accion.equals("subirSolicitudExamen")){
+            int IdPaciente = Integer.valueOf(request.getParameter("IdPaciente"));
+            int IdExamen = Integer.valueOf(request.getParameter("IdExamen"));
+            int IdSolicitud = Integer.valueOf(request.getParameter("IdSolicitud"));
+            double precio = Double.valueOf(request.getParameter("Precio"));
+            UsuarioServicio US = new UsuarioServicio();
+            if(servicio.EvitarRepetirExamen(IdSolicitud, IdExamen)){
+                if(US.ObtenerSaldo(IdPaciente)>=precio){
+                    servicio.CrearExamenSolicitud(IdSolicitud, IdExamen);
+                    US.RestarSaldoPaciente(IdPaciente, precio);          
+                    response.setStatus(HttpServletResponse.SC_CREATED);
+                }else{
+                    response.sendError(HttpServletResponse.SC_CONFLICT);
+                }
+            }else{
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
         }
     } 

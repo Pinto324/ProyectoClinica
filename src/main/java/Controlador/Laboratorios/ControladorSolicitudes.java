@@ -43,6 +43,27 @@ public class ControladorSolicitudes extends HttpServlet {
             out.flush();
         }
     }
+        ///////*  
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        String accion = request.getParameter("accion");
+        if(accion != null && accion.equals("CrearSolicitud")){
+            int IdLab = Integer.valueOf(request.getParameter("Idlab"));
+            int IdPaciente = Integer.valueOf(request.getParameter("idUsuario"));
+            String Estado = request.getParameter("Estado");
+            int IdSoli = Servicio.CrearSolicitud(IdLab, IdPaciente, Estado); 
+            if(IdSoli!=-1){
+                              response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print(IdSoli);
+        out.flush();
+            }else{
+                response.sendError(HttpServletResponse.SC_CONFLICT);
+            }
+        }
+    } 
                // PUT /
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -51,9 +72,16 @@ public class ControladorSolicitudes extends HttpServlet {
         if(accion != null && accion.equals("FinalizarSolicitud")){
             int IdESL = Integer.valueOf(request.getParameter("IdSolicitud"));
             if(Servicio.finalizarSolicitud(IdESL)){
-                ExamenesDeUnaSolicitudServicio Pago = new ExamenesDeUnaSolicitudServicio();
-                Pago.pagarExamenesDeSolicitud(IdESL);
                 response.setStatus(HttpServletResponse.SC_OK);
+            }else{
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        }else if(accion != null && accion.equals("OficializarSolicitud")){
+            int IdSolicitud = Integer.valueOf(request.getParameter("IdSolicitud"));
+            ExamenesDeUnaSolicitudServicio Pago = new ExamenesDeUnaSolicitudServicio();
+            if(Pago.pagarExamenesDeSolicitud(IdSolicitud)){
+              Servicio.OficializarSolicitud(IdSolicitud);
+              response.setStatus(HttpServletResponse.SC_OK);
             }else{
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }

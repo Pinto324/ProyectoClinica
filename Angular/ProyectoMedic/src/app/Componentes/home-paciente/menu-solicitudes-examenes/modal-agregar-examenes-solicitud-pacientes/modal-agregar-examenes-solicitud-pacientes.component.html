@@ -1,0 +1,46 @@
+<ng-container *ngIf="chow">
+    <div class="modalC">
+        <div class="modalC-content">
+            <div class="modalc-header">
+                <h4 class="modalc-title">
+                    Agregar Examenes a la Solicitud a: {{ datos.Nombre }}
+                </h4>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" (click)="chow = false">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </div>
+            <!-- Cuerpo  -->
+                <div class="modalC-container"> 
+                    <label for="especialidad">Selecione un examen para agregar</label>
+                    <select name="selectedOption" [(ngModel)]="selectedOption">
+                    <ng-container *ngFor="let dato of examenes; let i = index;">
+                        <ng-container *ngIf="i % 3 === 0">
+                        <option  [value]="examenes">{{examenes[i+1]}}</option>
+                        </ng-container>
+                    </ng-container>
+                    </select>
+                    <button (click)=" AgregarExamenSeleccionado()">Agregar Examen seleccionado</button>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Examenes Agregados:</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let dato of ExamenesAgregados; let i = index;">
+                            <ng-container *ngIf="i % 3 === 0">
+                          <tr>
+                            <td>{{ dato }}</td>
+                          </tr>
+                        </ng-container>
+                    </ng-container>
+                        </tbody>
+                      </table>
+                    <div class="botones">
+                        <button *ngIf="proteccionExamen" (click)="Finalizar()">Finalizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
+</ng-container>
