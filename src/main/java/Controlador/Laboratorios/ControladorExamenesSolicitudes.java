@@ -8,11 +8,15 @@ package Controlador.Laboratorios;
 import Servicios.Laboratorios.ExamenesDeUnaSolicitudServicio;
 import Servicios.Laboratorios.PorcentajeSolicitudServicio;
 import Servicios.UsuarioServicio;
+import Utilidades.ArchivoPDF;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +46,24 @@ public class ControladorExamenesSolicitudes extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
+        }else if(accion != null && accion.equals("DescargarExamenes")){
+            int IdSolicitud = Integer.valueOf(request.getParameter("IdSolicitud"));
+            String zipFileName = "Examenes.zip";
+            response.setContentType("application/zip");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + zipFileName + "\"");
+            ZipOutputStream zos = new ZipOutputStream(response.getOutputStream());
+            List<ArchivoPDF> pdfFiles = servicio.ListaDePdf(IdSolicitud);
+            for (ArchivoPDF pdfFile : pdfFiles) {
+                String Nombre = pdfFile.getNombre();
+                byte[] Cuerpo = pdfFile.getPdf();
+                ZipEntry zipEntry = new ZipEntry(Nombre);
+                zos.putNextEntry(zipEntry);
+                zos.write(Cuerpo, 0, Cuerpo.length);
+                zos.closeEntry();
+            }
+            zos.close();
+            response.getOutputStream().close();
+            response.setStatus(HttpServletResponse.SC_OK);
         }
     }
     

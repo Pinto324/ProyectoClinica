@@ -1,1 +1,28 @@
-<p>menu-examenes-pendientes works!</p>
+<div>
+    <table>
+        <thead>
+          <tr>
+            <th>id de solicitud</th>
+            <th>Nombre Del laboratorio</th>
+            <th>Fecha en la que se solicito</th>
+            <th>Fecha en la que se finalizo</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of Solicitud">
+            <td>{{ fila.IdSolicitud }}</td>
+            <td>{{ fila.NombreLab }}</td>
+            <td>{{ fila.Fecha }}</td>
+            <td>{{ fila.FechaFinalizado }}</td>
+            <td>{{ fila.Telefono }}</td>
+            <td>{{ fila.Correo }}</td>
+            <td>{{ fila.Estado }}</td>
+            <td><button *ngIf="fila.Estado==='FINALIZADA'" (click)="DescargarExamenes(fila.IdSolicitud)">Descargar Examenes</button></td>
+          </tr>
+        </tbody>
+      </table>  
+</div>
+

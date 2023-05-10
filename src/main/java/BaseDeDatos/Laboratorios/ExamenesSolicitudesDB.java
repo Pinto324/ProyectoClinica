@@ -9,6 +9,7 @@ import BaseDeDatos.Conexion;
 import Objetos.Usuario;
 import Servicios.Reportes.GananciaGeneradaLabsServicio;
 import Servicios.UsuarioServicio;
+import Utilidades.ArchivoPDF;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -140,5 +141,26 @@ public class ExamenesSolicitudesDB {
             System.out.println(ex);
         }
         return false;
+    }
+        //enlistado de pdfs
+    public List<ArchivoPDF> ListaDePdfs(int id){
+        Con = new Conexion();
+        List<ArchivoPDF> ListaPdf = new ArrayList<>();
+        ResultSet U;
+        try {
+            U = Con.IniciarConexion().executeQuery("SELECT * FROM examenessolicitadosenlaboratorio WHERE IdSolicitudLaboratorioESL = '"+id+"';");           
+                while(U.next()){  
+                    String NombreExamen = (U.getString(5)+".pdf");
+                    byte[] Cuerpo = U.getBytes(4);
+                    ArchivoPDF NuevoArchivo = new ArchivoPDF(NombreExamen, Cuerpo);
+                    ListaPdf.add(NuevoArchivo);
+                }
+                U.close();
+                Con.CerrarConexiones();
+                return ListaPdf;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
     }
 }

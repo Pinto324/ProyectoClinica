@@ -23,7 +23,6 @@ import { ModalAgregarExamenesComponent } from './Componentes/home-laboratorios/m
 import { HomeAdminComponent } from './Componentes/home-admin/home-admin.component';
 import { HomePacienteComponent } from './Componentes/home-paciente/home-paciente.component'; // importa el routing module de medicos
 import { NgxFileDropModule } from 'ngx-file-drop';
-import { MenuReportesComponent } from './menu-reportes/menu-reportes.component';
 import { MenuSolicitarConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/menu-solicitar-consulta.component';
 import { ModalNuevoConsultaComponent } from './Componentes/home-paciente/menu-solicitar-consulta/modal-nuevo-consulta/modal-nuevo-consulta.component';
 import { MenuConsultasPendientesComponent } from './Componentes/home-paciente/menu-consultas-pendientes/menu-consultas-pendientes.component';
@@ -32,6 +31,8 @@ import { MenuSolicitudesExamenesComponent } from './Componentes/home-paciente/me
 import { MenuExamenesPendientesComponent } from './Componentes/home-paciente/menu-examenes-pendientes/menu-examenes-pendientes.component';
 import { ModalExamenesPendientesPacientesComponent } from './Componentes/home-paciente/menu-examenes-pendientes/modal-examenes-pendientes-pacientes/modal-examenes-pendientes-pacientes.component';
 import { ModalAgregarExamenesSolicitudPacientesComponent } from './Componentes/home-paciente/menu-solicitudes-examenes/modal-agregar-examenes-solicitud-pacientes/modal-agregar-examenes-solicitud-pacientes.component';
+import { MenuReportesComponent } from './Componentes/home-laboratorios/menu-reportes/menu-reportes.component';
+import { MenuReportePacienteComponent } from './Componentes/home-paciente/menu-reporte-paciente/menu-reporte-paciente.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Ruta predeterminada que redirige al usuario a la página de inicio
@@ -64,7 +65,6 @@ const routes: Routes = [
     ModalAgregarExamenesComponent,
     HomeAdminComponent,
     HomePacienteComponent,
-    MenuReportesComponent,
     MenuSolicitarConsultaComponent,
     ModalNuevoConsultaComponent,
     MenuConsultasPendientesComponent,
@@ -73,6 +73,8 @@ const routes: Routes = [
     MenuExamenesPendientesComponent,
     ModalExamenesPendientesPacientesComponent,
     ModalAgregarExamenesSolicitudPacientesComponent,
+    MenuReportesComponent,
+    MenuReportePacienteComponent
   ],
   imports: [
     BrowserModule,

@@ -55,16 +55,50 @@ public class SolicitudDeLaboratorioDB {
         }
         return null;
     }
+        //devuelve una lista de datos de las solicitudes de un lab
+    public List<String> ListaDeSolicitudesPaciente(int IdPaciente){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM solicitudlaboratorio INNER JOIN usuariosmedic ON usuariosmedic.IdUsuario = IdDelLaboratorioSL WHERE  IdDelPacienteSL = '"+IdPaciente+"' AND (EstadoSL='PENDIENTE' OR EstadoSL='FINALIZADA');");
+            while(U.next()){ 
+                String dato;
+                dato = String.valueOf(U.getInt(U.findColumn("IdSolicitudLaboratorio")));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreUsuario"));
+                Info.add(dato);
+                dato = String.valueOf(U.getDate(U.findColumn("FechaSolicitadoSL")));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Telefono"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Email"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("EstadoSL"));
+                Info.add(dato);  
+                dato = String.valueOf(U.getDate(U.findColumn("FechaFinalizadoSL")));
+                Info.add(dato);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
     
         //querry para finalizar el estado de una solicitud:
     public boolean FinalizarSolicitud(int id){
         try{
             Con = new Conexion();
             Con.IniciarConexion();
-            String Ssql = "UPDATE solicitudlaboratorio SET EstadoSL=? WHERE IdSolicitudLaboratorio=?";
+            java.util.Date fechaActual = new java.util.Date();
+            Date fechaSql = new java.sql.Date(fechaActual.getTime());
+            String Ssql = "UPDATE solicitudlaboratorio SET EstadoSL=?, FechaFinalizadoSL=? WHERE IdSolicitudLaboratorio=?";
             PreparedStatement cambio = Con.getConexion().prepareStatement(Ssql);
             cambio.setString(1, "FINALIZADA");
-            cambio.setInt(2, id);
+            cambio.setDate(2, fechaSql);
+            cambio.setInt(3, id);
             cambio.executeUpdate();
             Con.CerrarConexiones();
             return true; 

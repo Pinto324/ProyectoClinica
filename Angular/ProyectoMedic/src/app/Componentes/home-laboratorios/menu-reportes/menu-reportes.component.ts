@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../../Services/user';
+import { UserService } from '../../../../Services/user';
 
 @Component({
   selector: 'app-menu-reportes',

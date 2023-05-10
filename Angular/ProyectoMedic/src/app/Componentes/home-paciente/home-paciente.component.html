@@ -31,12 +31,12 @@
                 <div class="contenedor">
                     <a (click)="abrirRecarga()" id="logo">Pacientes</a>
                 </div>
-                <div (click)="abrirMenuExamenNuevo()" class="contenedor">
-                    <a  class="nav-link">
+                <div  class="contenedor">
+                    <a (click)="abrirMenuExamenNuevo()"  class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/1934/1934474.png" width="60" height="60">
                         <label>Solicitar Examenes nuevos</label>
                     </a>
-                    <a  class="nav-link">
+                    <a (click)="abrirMenuExamenPendiente()" class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/2464/2464568.png" width="60" height="60">
                         <label>Ver Examenes pendientes</label>
                     </a>
@@ -58,6 +58,7 @@
                 <app-menu-solicitar-consulta *ngIf="ConsultaNueva"></app-menu-solicitar-consulta>
                 <app-menu-consultas-pendientes *ngIf="ConsultaPendiente"></app-menu-consultas-pendientes>
                 <app-menu-solicitudes-examenes *ngIf="ExamenNuevo"></app-menu-solicitudes-examenes>
+                <app-menu-examenes-pendientes *ngIf="ExamenPendiente"></app-menu-examenes-pendientes>
             </div>
         </section>
     </body>

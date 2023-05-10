@@ -6,6 +6,7 @@
 package Servicios.Laboratorios;
 
 import BaseDeDatos.Laboratorios.ExamenesSolicitudesDB;
+import Utilidades.ArchivoPDF;
 import java.util.List;
 
 /**
@@ -22,4 +23,5 @@ public class ExamenesDeUnaSolicitudServicio {
     public boolean pagarExamenesDeSolicitud(int Id){return DB.PagarExamenesDeSolicitud(Id);}
     public void CrearExamenSolicitud(int IdSolicitud, int IdExamen){DB.CrearExamenSolicitudConsulta(IdSolicitud, IdExamen);}
     public boolean EvitarRepetirExamen(int IdSolicitud, int IdExamen){return DB.EvitarRepetirExamen(IdSolicitud, IdExamen);}
+    public List<ArchivoPDF> ListaDePdf(int id){return DB.ListaDePdfs(id);}
 }

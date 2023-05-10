@@ -68,7 +68,7 @@ export class ModalAgregarExamenesComponent {
     FinalizarConsulta(){
       this.http.put('http://localhost:8080/Proyecto2Clinica/ControladorSolicitudes?accion=FinalizarSolicitud&IdSolicitud='+this.datos, this.datos).subscribe(
         res => {
-          alert('Se le deposito el dinero de los examenes correctamente');
+          alert('Se completo la solicitud correctamente');
           this.getExamenesDeSolicitud().subscribe(examenes => {
             this.tabla = examenes;
             this.cerrado.emit();

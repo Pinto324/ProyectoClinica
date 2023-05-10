@@ -41,7 +41,15 @@ public class ControladorSolicitudes extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
+        }else if(accion != null && accion.equals("obtenerSolicitudesIdPaciente")) {
+            int IdPaciente = Integer.valueOf(request.getParameter("IdPaciente"));
+            String jsonEspecialidades = gson.toJson(Servicio.ListaDeSolicitudesPaciente(IdPaciente));
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
         }
+        
     }
         ///////*  
     @Override
