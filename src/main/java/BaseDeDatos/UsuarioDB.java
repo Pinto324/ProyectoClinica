@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,6 +166,32 @@ public class UsuarioDB {
             //Para el reporte de administración y medico:
             GananciaGeneradaMedicosServicio Servicio = new GananciaGeneradaMedicosServicio();
             Servicio.IngresarGanancia(IdConsulta, cobroApp, CobroFinal);
+            Con.CerrarConexiones();
+            return true; 
+        }catch(SQLException e){
+            return false;
+        }
+    }       
+    //metodo que paga las consultas 
+    public boolean RecargaPaciente(int IdPagado, double monto){
+        try{
+            Con = new Conexion();
+            Con.IniciarConexion();
+            //Envia el pago al medico
+            String Ssql = "UPDATE usuariosmedic SET Saldo=Saldo + ? WHERE IdUsuario=?";
+            PreparedStatement cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setDouble(1, monto);
+            cambio.setInt(2, IdPagado);
+            cambio.executeUpdate();
+            //Reportes:
+            LocalDateTime fechaHoraActual = LocalDateTime.now();
+            Timestamp timestamp = Timestamp.valueOf(fechaHoraActual);
+            Ssql = "Insert into recargaspacientes (Monto, HoraFecha, IdPaciente) values (?,?,?);";
+            cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setDouble(1, monto);
+            cambio.setTimestamp(2, timestamp);
+            cambio.setInt(3, IdPagado);
+            cambio.executeUpdate();
             Con.CerrarConexiones();
             return true; 
         }catch(SQLException e){

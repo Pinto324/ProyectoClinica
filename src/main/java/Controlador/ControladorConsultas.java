@@ -105,9 +105,13 @@ public class ControladorConsultas extends HttpServlet {
                 int idConsulta = CS.CrearConsulta(IdPaciente, IdMedico, IdEspecialidad, FechaAgendada, precio);
                 if(idConsulta>0){
                     UsuarioServicio pagar = new UsuarioServicio();
-                    pagar.PagarAlDoyAdmin(IdMedico, precio, porcentaje.BuscarPorcentajeComision(IdEspecialidad), idConsulta);
-                    pagar.RestarSaldoPaciente(IdPaciente, precio);
-                    response.setStatus(HttpServletResponse.SC_CREATED);
+                    if(porcentaje.BuscarPorcentajeComision(IdEspecialidad)!=-1){
+                        pagar.PagarAlDoyAdmin(IdMedico, precio, porcentaje.BuscarPorcentajeComision(IdEspecialidad), idConsulta);
+                        pagar.RestarSaldoPaciente(IdPaciente, precio);
+                        response.setStatus(HttpServletResponse.SC_CREATED);
+                    }else{
+                        response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+                    }
                 }else{ response.setStatus(HttpServletResponse.SC_BAD_REQUEST);}
             }else{
                 response.setStatus(HttpServletResponse.SC_CONFLICT);

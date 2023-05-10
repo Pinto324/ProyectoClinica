@@ -78,9 +78,5 @@ export class MenuReportesMedicosComponent {
       const url = 'http://localhost:8080/Proyecto2Clinica/ControladorDeReportes?accion=topEspecialidadesMedicos&IdMedico='+this.UserService.getId();
       return this.http.get<any[]>(url);
     }
-  //metodo para comprara las fechas:
-  comprobarFechas(FechaInicio: Date, FechaFinal: Date): boolean {
-    return FechaInicio.getTime() < FechaFinal.getTime();
-  }
 
 }

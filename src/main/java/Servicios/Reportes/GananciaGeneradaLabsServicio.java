@@ -21,4 +21,5 @@ public class GananciaGeneradaLabsServicio {
     public void IngresarGanancia(int IdConsulta, double GananciaLab, double GananciaApp, int IdExamen){DB.SubirDatosParaReporte(IdConsulta, GananciaLab, GananciaApp, IdExamen);}
     public List<String> ReporteTop5Pacientes(int IdMedico, String FI, String FF){return DB.ReporteTop5PacienteLab(IdMedico,FI,FF);}
     public List <String> ReporteTop5Examenes(int IdMedico, String FI, String FF){return DB.ReporteTop5ExamenesLab(IdMedico,FI,FF);}
+    public List<String> HistorialPacienteSolicitud(int IdPaciente, String FI, String FF){return DB.HistorialPacienteSolicitud(IdPaciente, FI, FF);}
 }

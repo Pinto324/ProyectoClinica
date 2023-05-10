@@ -107,7 +107,7 @@ table{
 
 .divInfo{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
     height: 152px;
@@ -157,3 +157,33 @@ table{
     background-color: #f2f2f2;
     font-weight: bold;
   }
+  #divArriba{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+  }
+  #botones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    background-color: transparent;
+    border: 0px solid black;
+  }
+  #fechas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    background-color: transparent;
+    border: 0px solid black;
+  }
+  .trRecarga{
+    background-color: antiquewhite;
+    border: 2px solid black;
+  }
+

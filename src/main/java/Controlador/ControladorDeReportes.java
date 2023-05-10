@@ -10,6 +10,8 @@ import Servicios.Reportes.GananciaGeneradaMedicosServicio;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +62,40 @@ public class ControladorDeReportes extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
-        }        
+        }else if(accion != null && accion.equals("HistorialDePaciente")){
+            int Id = Integer.valueOf(request.getParameter("IdPaciente"));
+            List<String> Datos = new ArrayList<>();
+            Datos.addAll(Servicio.HistorialDePacienteConsulta(Id, FechaInicio, FechaFinal));
+            Datos.addAll(ServicioLabs.HistorialPacienteSolicitud(Id, FechaInicio, FechaFinal));
+            String jsonEspecialidades = gson.toJson(Datos);
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("HistorialDeRecargas")){
+            int Id = Integer.valueOf(request.getParameter("IdPaciente"));
+            String jsonEspecialidades = gson.toJson(Servicio.HistorialDeRecargasPaciente(Id));
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("ConsultasPorEspecialidad")){
+            int Id = Integer.valueOf(request.getParameter("IdPaciente"));
+            int IdEspe = Integer.valueOf(request.getParameter("Espe"));
+            String jsonEspecialidades = gson.toJson(Servicio.ConsultasPorEspecialidad(Id,IdEspe,FechaInicio,FechaFinal));
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("SolicitudesPorExamenes")){
+            int Id = Integer.valueOf(request.getParameter("IdPaciente"));
+            int IdEspe = Integer.valueOf(request.getParameter("examen"));
+            String jsonEspecialidades = gson.toJson(Servicio.ExamenPorTipo(Id,IdEspe,FechaInicio,FechaFinal));
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }  
     }
         @Override
     protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

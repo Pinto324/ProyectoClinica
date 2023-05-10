@@ -1,1 +1,160 @@
-<p>menu-reporte-paciente works!</p>
+
+    <div class="ContenedorPrincipal">
+        <div class="divHeader">
+            <h1>Menú de reportes</h1>
+            <div class="divHead">
+                <div id="divArriba">
+                    <div id="botones">
+                    <button (click)="MostrarHistorial()" type="button">Historial Médico</button>
+                    <button (click)="MostrarHistorialRecargas()" type="button">Historial de recargas</button>
+                    <button (click)="MostrarConsultas()" type="button" >Reporte consultas</button>
+                    <button (click)="MostrarExamenes()" type="button" >Reporte Solicitudes</button>
+                    </div>
+                    <div id="fechas">
+                      <div class="divInterno">
+                          <label for="fecha">Fecha Inicial:</label>
+                          <input type="date" id="fecha" [(ngModel)]="fechaInicial">
+                      </div>
+                      <div class="divInterno">
+                          <label for="fecha">Fecha final:</label>
+                          <input type="date" id="fecha" [(ngModel)]="fechaFinal">
+                      </div>
+                    </div>
+                  </div>
+        </div>
+        <div class="divBody">
+            <!-- parte del reporte de historial medico-->
+            <ng-container *ngIf="mostrarHistorial">
+                <div class="table-container">
+                    <table>
+                        <tr *ngFor="let Info of InfoHistorial">
+                            <td>
+                                <div class="divInfo">
+                                    <div class="divInternoHistorial">
+                                        <table>
+                                            <tr>
+                                              <td>Nombre del Medico:</td>
+                                              <td>{{Info.Nombre}}</td>
+                                            </tr>
+                                            <tr>
+                                              <td *ngIf="Info.Estado=='Consulta'">Especialidad consultada:</td>
+                                              <td *ngIf="Info.Estado=='Solicitud'">Examen Solicitado:</td>
+                                              <td>{{Info.NombreTrabajo}}</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Fecha consultada:</td>
+                                              <td>{{Info.Fecha}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Numero de teléfono:</td>
+                                                <td>{{Info.Telefono}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="divInternoHistorial">
+                                        <textarea *ngIf="Info.Estado=='Consulta'" readonly class="text-area">Informe final del medico: {{Info.Final}}</textarea>
+                                        <textarea *ngIf="Info.Estado=='Solicitud'" readonly class="text-area">Nombre del archivo del exámen: {{Info.Final}}</textarea>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </ng-container>
+        <!-- parte del reporte de HISTORIAL DE RECARGAS-->
+            <ng-container *ngIf="mostrarRecargas">
+                <div class="table-container">
+                    <table *ngFor="let datos of historialRecargas">
+                        <tr class="trRecarga">
+                          <td>Monto recargado:</td>
+                          <td>{{datos.Monto}}</td>
+                        </tr>
+                        <tr class="trRecarga">
+                          <td>Hora y fecha:</td>
+                          <td>{{datos.Fecha}}</td>
+                        </tr>           
+                      </table>
+                </div>
+            </ng-container>
+        <!-- parte del reporte de Consultas por especialidad-->
+        <ng-container *ngIf="mostrarConsultas">
+            <div class="table-container">
+                <select name="selectedOption" [(ngModel)]="selectedOptionEspecialidad">
+                    <option (OnChange)="boton()" *ngFor="let especialidades of ListaEspecialidades" [value]="especialidades.IdEspecialidades">{{especialidades.NombreEspecialidad}}</option>
+                  </select>
+                  <button *ngIf="BotonEspecialidad" (click)="llenarConsultas()" type="button">Buscar con especialidad</button>
+                <table *ngIf="TablaEspecialidad">
+                    <tr *ngFor="let Info of InfoConsultas">
+                        <td>
+                            <div class="divInfo">
+                                <div class="divInternoHistorial">
+                                    <table>
+                                        <tr>
+                                          <td>Nombre del Medico:</td>
+                                          <td>{{Info.Nombre}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td >Especialidad consultada:</td>
+                                          <td>{{Info.NombreTrabajo}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td>Fecha consultada:</td>
+                                          <td>{{Info.Fecha}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Numero de teléfono:</td>
+                                            <td>{{Info.Telefono}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="divInternoHistorial">
+                                    <textarea readonly class="text-area">Informe final del medico: {{Info.Final}}</textarea>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ng-container>
+                <!-- parte del reporte de Examenes por examen-->
+                <ng-container *ngIf="mostrarExamenes">
+                    <div class="table-container">
+                        <select name="selectedOption" [(ngModel)]="selectedOptionExamen">
+                            <option (OnChange)="botonExamen()" *ngFor="let especialidades of ListaExamenes" [value]="especialidades.idTipoDeExamenes">{{especialidades.nombreExamen}}</option>
+                          </select>
+                          <button *ngIf="BotonExamene" (click)="llenarExamenes()" type="button">Buscar por examen</button>
+                        <table *ngIf="TablaExamenes">
+                            <tr *ngFor="let Info of InfoSolicitudes">
+                                <td>
+                                    <div class="divInfo">
+                                        <div class="divInternoHistorial">
+                                            <table>
+                                                <tr>
+                                                  <td>Nombre del Medico:</td>
+                                                  <td>{{Info.Nombre}}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td >Especialidad consultada:</td>
+                                                  <td>{{Info.NombreTrabajo}}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td>Fecha consultada:</td>
+                                                  <td>{{Info.Fecha}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Numero de teléfono:</td>
+                                                    <td>{{Info.Telefono}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="divInternoHistorial">
+                                            <label>Nombre del archivo del examen: {{Info.Final}}</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ng-container>
+        </div>
+    </div>

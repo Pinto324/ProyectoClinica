@@ -85,6 +85,14 @@ public class ControladorUsuario extends HttpServlet {
             }else{
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
+        }else if(accion != null && accion.equals("RecargaPaciente")){
+             int Id = Integer.valueOf(request.getParameter("IdPaciente"));
+             double monto = Double.valueOf(request.getParameter("Monto"));
+             if(usuarioServicio.Recarga(Id,monto)){
+                response.setStatus(HttpServletResponse.SC_OK);
+            }else{
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
         }
     }
     private int processPath(HttpServletRequest request, HttpServletResponse response) throws IOException {

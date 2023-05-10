@@ -94,4 +94,114 @@ public class GananciaGeneradaMedicosDB {
         }
         return null;
     }
+        //conseguir el historial de consultas de un paciente en una fecha:
+    public List<String> HistorialPacienteConsulta(int id,String FechaInicio, String FechaFinal){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM Consultas INNER JOIN Especialidades ON Especialidades.IdEspecialidades = IdDeEspecialidadDelMedico INNER JOIN UsuariosMedic ON UsuariosMedic.IdUsuario = IdDelMedicoConsultas WHERE EstadoConsulta='FINALIZADA' AND IdDelPacienteConsultas ='"+id+"'AND FechaAgendada BETWEEN '"+FechaInicio+"' AND '"+FechaFinal+"'ORDER BY FechaAgendada desc;");
+            while(U.next()){  
+                String dato;
+                dato = U.getString(U.findColumn("NombreUsuario"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreEspecialidad"));
+                Info.add(dato);
+                dato = String.valueOf(U.getTimestamp(U.findColumn("FechaAgendada"))).substring(0, 10);
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Telefono"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Email"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("InformeFinal"));
+                Info.add(dato);
+                dato = "Consulta";
+                Info.add(dato);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+            //conseguir el HistorialPacienteRecargas:
+    public List<String> HistorialPacienteRecargas(int id){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM recargaspacientes WHERE IdPaciente ='"+id+"'ORDER BY HoraFecha desc;");
+            while(U.next()){  
+                String dato;
+                dato = U.getString(U.findColumn("Monto"));
+                Info.add(dato);
+                dato = String.valueOf(U.getTimestamp(U.findColumn("HoraFecha")));
+                Info.add(dato);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+                //conseguir el consultas por especialidad:
+    public List<String> HistorialConsultasEspecialidad(int id, int IdEspe, String FI, String FF){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM consultas INNER JOIN Especialidades ON Especialidades.IdEspecialidades = IdDeEspecialidadDelMedico INNER JOIN UsuariosMedic ON UsuariosMedic.IdUsuario = IdDelMedicoConsultas WHERE IdDelPacienteConsultas ='"+id+"'AND EstadoConsulta='FINALIZADA' AND IdDeEspecialidadDelMedico='"+IdEspe +"'AND FechaAgendada BETWEEN '"+FI+"' AND '"+FF+"'ORDER BY FechaAgendada desc;");
+            while(U.next()){  
+                String dato;
+                dato = U.getString(U.findColumn("NombreUsuario"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreEspecialidad"));
+                Info.add(dato);
+                dato = String.valueOf(U.getTimestamp(U.findColumn("FechaAgendada"))).substring(0, 10);
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Telefono"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Email"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("InformeFinal"));
+                Info.add(dato);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    //conseguir hitorial examenes
+    public List<String> HistorialExamenesPorTipo(int id, int IdEspe, String FI, String FF){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM solicitudlaboratorio INNER JOIN examenessolicitadosenlaboratorio ON examenessolicitadosenlaboratorio.IdSolicitudLaboratorioESL = IdSolicitudLaboratorioESL INNER JOIN tipodeexamenes ON tipodeexamenes.IdTipoDeExamenes = examenessolicitadosenlaboratorio.IdExamenESL INNER JOIN UsuariosMedic ON UsuariosMedic.IdUsuario = IdDelLaboratorioSL WHERE IdDelPacienteSL ='"+id+"'AND EstadoSL='FINALIZADA' AND IdExamenESL='"+IdEspe +"'AND FechaFinalizadoSL BETWEEN '"+FI+"' AND '"+FF+"'ORDER BY FechaFinalizadoSL desc;");
+            while(U.next()){  
+                String dato;
+                dato = U.getString(U.findColumn("NombreUsuario"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreExamen"));
+                Info.add(dato);
+                dato = String.valueOf(U.getDate(U.findColumn("FechaFinalizadoSL")));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Telefono"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("Email"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreDeArchivoESL"));
+                Info.add(dato);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
 }
