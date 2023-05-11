@@ -5,6 +5,7 @@
  */
 package BaseDeDatos;
 
+import Objetos.Laboratorios.SolicitudDeLaboratorio;
 import Servicios.Medicos.PorcentajeConsultasServicio;
 import java.sql.Connection;
 import java.sql.Date;
@@ -136,6 +137,30 @@ public class SolicitudDeLaboratorioDB {
             System.out.println(ex);
         }
         return -2;
+    }
+            //metodo para IngresarSolicitudCarga
+    public void IngresarSolicitudCarga(SolicitudDeLaboratorio s){
+        Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into solicitudlaboratorio (IdSolicitudLaboratorio,IdDelPacienteSL, IdDelLaboratorioSL, PorcentajeAppSL, FechaSolicitadoSL,FechaFinalizadoSL , EstadoSL) values (?,?,?,?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, s.getIdSolicitud());
+            ps.setInt(2, s.getIdDelPacienteSL());
+            ps.setInt(3, s.getIdDelLaboratorioSL());
+            ps.setDouble(4, s.getPorcentajeAppSL());
+            ps.setDate(5, s.getFechaSolicitadoSL());
+            ps.setDate(6, s.getFechaFinalizadoSL());
+            ps.setString(7, s.getEstadoSL());
+            ps.executeUpdate();    
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
             //querry para oficializar el estado de una solicitud:
     public boolean OficializarSolicitud(int id){

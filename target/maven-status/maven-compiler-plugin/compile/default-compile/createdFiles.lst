@@ -13,6 +13,7 @@ BaseDeDatos\SolicitudDeLaboratorioDB.class
 BaseDeDatos\EspecialidadesMedicosDB.class
 BaseDeDatos\EspecialidadesDB.class
 Controlador\ControladorConsultas.class
+Controlador\ControladorCargaDeDatos.class
 BaseDeDatos\Medicos\HorariosMedicosDB.class
 Servicios\Laboratorios\PorcentajeSolicitudServicio.class
 BaseDeDatos\Laboratorios\TipoDeExamenDB.class

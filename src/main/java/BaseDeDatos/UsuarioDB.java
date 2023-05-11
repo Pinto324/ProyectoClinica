@@ -83,9 +83,10 @@ public class UsuarioDB {
         PreparedStatement ps;
         String sql;
         try {
-            sql = "insert into UsuariosMedic (NombreUsuario, Username, Password, Direccion, CUI, Telefono,Email,FechaNacimiento,Tipo,Saldo) values (?,?,?,?,?,?,?,?,?);";
+            sql = "insert into UsuariosMedic (IdUsuario,NombreUsuario, Username, Password, Direccion, CUI, Telefono,Email,FechaNacimiento,Tipo,Saldo) values (?,?,?,?,?,?,?,?,?,?,?);";
             Conn = Con.getConexion();
             ps = Conn.prepareStatement(sql);
+            ps.setInt(1, user.getCodigo());
             ps.setString(2, user.getNombre());
             ps.setString(3, user.getUserName());
             ps.setString(4, user.getPassword());
@@ -93,13 +94,14 @@ public class UsuarioDB {
             ps.setString(6, user.getCUI());
             ps.setString(7, user.getTelefono());
             ps.setString(8, user.getEmail());
-            ps.setDate(8, user.getFechaNacimiento());
-            ps.setString(9, user.getTipo());
-            ps.setDouble(10, user.getSaldo());
+            ps.setDate(9, user.getFechaNacimiento());
+            ps.setString(10, user.getTipo());
+            ps.setDouble(11, user.getSaldo());           
             ps.executeUpdate();          
             Con.CerrarConexiones();
             Conn.close();
         } catch (SQLException ex) {
+            System.out.println("ya hay un usuario con ese id en el sistema");
         }
     }
     public boolean ModificarDatos(Usuario Nuevo){

@@ -6,16 +6,13 @@
 package BaseDeDatos.Reportes;
 
 import BaseDeDatos.Conexion;
-import Objetos.Laboratorios.TipoDeExamen;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -43,6 +40,27 @@ public class GananciaGeneradaMedicosDB {
             ps.setDouble(2, CantidadGeneradaAppGGM);
             ps.setDouble(3, CantidadGeneradaMedicoGGM);
             ps.setDate(4, fechaSQL);
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    ///metodo para subir reportes de carga:
+    public void SubirDatosCarga(int IdConsulta, double CantidadGeneradaAppGGM, double CantidadGeneradaMedicoGGM, Date Fecha){
+    Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into gananciageneradamedicos (IdConsultaGGM, CantidadGeneradaAppGGM, CantidadGeneradaMedicoGGM, FechaDeMov) values (?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, IdConsulta);
+            ps.setDouble(2, CantidadGeneradaAppGGM);
+            ps.setDouble(3, CantidadGeneradaMedicoGGM);
+            ps.setDate(4, Fecha);
             ps.executeUpdate();          
             Con.CerrarConexiones();
             Conn.close();

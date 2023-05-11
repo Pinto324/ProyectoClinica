@@ -45,6 +45,26 @@ public class EspecialidadesMedicosDB {
         } catch (SQLException ex) {
         }
     }
+    //metodo para asignar una especialidad a un medico de una vez activa
+    public void AsignarEspecialdadActiva(EspecialidadesMedicos e){
+    Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into EspecialidadesMedicos (IdDelMedicoEM, IdEspecialidadEM, PrecioEspecialidad, EstadoEM) values (?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, e.getIdMedicoEM());
+            ps.setInt(2, e.getIdEspecialidadEM());
+            ps.setDouble(3, e.getPrecio());
+            ps.setString(4, "Activa");
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+        }
+    }
         public boolean EvitarRepetirEspecialidad(EspecialidadesMedicos e){
         Con = new Conexion();
         try {

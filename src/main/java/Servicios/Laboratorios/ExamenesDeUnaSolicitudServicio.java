@@ -7,6 +7,7 @@ package Servicios.Laboratorios;
 
 import BaseDeDatos.Laboratorios.ExamenesSolicitudesDB;
 import Utilidades.ArchivoPDF;
+import java.sql.Date;
 import java.util.List;
 
 /**

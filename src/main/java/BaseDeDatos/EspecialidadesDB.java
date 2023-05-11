@@ -57,5 +57,24 @@ public class EspecialidadesDB {
         }
         return -1;
     }
-
+    //metodo para insertar especialidades en la carga de datos
+    public void CrearEspecialidad(Especialidades user){
+    Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into especialidades (IdEspecialidades ,NombreEspecialidad, DescripcionEspecialidad, EstadoEspecialidad) values (?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, user.getIdEspecialidades());
+            ps.setString(2, user.getNombreEspecialidad());
+            ps.setString(3, user.getDescripcionEspecialidad());
+            ps.setBoolean(4, true);
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+        }
+    }
 }

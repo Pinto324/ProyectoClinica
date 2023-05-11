@@ -49,6 +49,28 @@ public class GananciaGeneradaLabsDB {
             System.out.println(ex);
         }
     }
+        //metodo para subir los datos SubirDatoCargaDeDatos
+    public void SubirDatoCargaDeDatos(int IdDelLab, double CantidadGeneradalabGGM, double CantidadGeneradaAppGGM, int IdExamen, Date Fecha){
+        Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into gananciageneradalabs (IdDeSolicitud, CantidadGeneradaLabAPP, CantidadPagadaAPP, IdDelExamen, FechaDeMovLab) values (?,?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, IdDelLab);
+            ps.setDouble(2, CantidadGeneradalabGGM);
+            ps.setDouble(3, CantidadGeneradaAppGGM);
+            ps.setInt(4, IdExamen);
+            ps.setDate(5, Fecha);
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
     //Metodo para encontrar el Top 5 Pacientes Lab
     public List<String> ReporteTop5PacienteLab(int id,String FechaInicio, String FechaFinal){
         Con = new Conexion();

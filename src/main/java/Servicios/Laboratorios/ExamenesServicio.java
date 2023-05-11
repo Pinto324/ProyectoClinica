@@ -30,5 +30,8 @@ public class ExamenesServicio {
     public boolean EvitarRepetirEspecialidad(ExamenesLaboratorios e){return DB.EvitarRepetirExamen(e);}
     //metodos para ExamenesDeSolicitudDB
     public List<String> ListaDeExamenesParaCrearSolicitud(int IdLab){return DBSolicitud.ListaExamenesSolicitudes(IdLab);}
-    
+    //metodo para crear examenes carga de archivos
+    public void CrearExamenCarga(TipoDeExamen e){DB.CrearExamen(e);}
+    //metodo para AsignarExamenLaboratorio
+    public void AsignarExamenLaboratorioCarga(ExamenesLaboratorios e){DBSolicitud.AsignarExamenLaboratorio(e);}
 }

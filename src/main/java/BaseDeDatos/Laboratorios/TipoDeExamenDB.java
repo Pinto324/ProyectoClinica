@@ -165,6 +165,26 @@ public class TipoDeExamenDB {
             System.out.println(ex);
         }
         return false;
-    }      
+    }    
+        //metodo para insertar examenes en la carga de datos
+    public void CrearExamen(TipoDeExamen user){
+    Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into tipodeexamenes (IdTipoDeExamenes ,NombreExamen, DescripcionExamen, EstadoExamen) values (?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, user.getIdTipoDeExamenes());
+            ps.setString(2, user.getNombreExamen());
+            ps.setString(3, user.getDescripcionExamen());
+            ps.setBoolean(4, true);
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+        }
+    }
     
 }

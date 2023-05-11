@@ -28,5 +28,7 @@ public class EspecialidadesServicio {
      public int BuscarIdEspecialidadPorNombre(String Nombre){return DB.BuscarIdEspecialidadPorNombre(Nombre);}
      public boolean EvitarRepetirEspecialidad(EspecialidadesMedicos e){return DBEM.EvitarRepetirEspecialidad(e);}
     public void CrearEspecialidadMedico(EspecialidadesMedicos e){DBEM.CrearUsuario(e);}
+    public void CrearEspecialidadMedicoActiva(EspecialidadesMedicos e){DBEM.AsignarEspecialdadActiva(e);}
+    public void CrearEspecialidadCarga(Especialidades e){DB.CrearEspecialidad(e);}
     public List<String> ListaEspecialidadesYDoctores(String Estado){return DBEM.ListaEspecialidadesYDoctores(Estado);}
 }

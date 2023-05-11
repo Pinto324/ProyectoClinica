@@ -146,7 +146,6 @@ export class MenuReportePacienteComponent {
               t.Final === item.Final
             ));
           });
-          console.log(this.InfoSolicitudes);
           this.TablaExamenes = true;
         });
       }

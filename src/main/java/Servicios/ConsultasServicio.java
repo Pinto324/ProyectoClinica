@@ -6,7 +6,9 @@
 package Servicios;
 
 import BaseDeDatos.ConsultasDB;
+import Objetos.Consultas;
 import Objetos.ConsultasHija;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -28,4 +30,5 @@ public class ConsultasServicio {
     public List<String> FiltrarHoraOcupadaConsulta(List<String> Horas, String Fecha, int Id){return DB.FiltrarHorasParaConsulta(Horas,Fecha, Id);}
     public List<String> ConsultasRevisionDeExamenPaciente(int Id) throws ParseException{return DB.ConsultasRevisionExamenPaciente(Id);} 
     public int CrearConsulta(int idIdPaciente, int idMedico, int idEspecialidad, String Fecha, double Precio){return DB.CrearConsulta(idIdPaciente, idMedico, idEspecialidad, Fecha, Precio);}
+    public void IngresarConsultaCarga(Consultas c, Timestamp fecha){DB.IngresaConsulta(c, fecha);}
 }

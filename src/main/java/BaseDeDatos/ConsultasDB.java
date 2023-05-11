@@ -235,4 +235,32 @@ public class ConsultasDB {
         }
         return null;
     }
+    //metodo para ingresar las consultas de la carga de datos:
+    public void IngresaConsulta(Consultas c, Timestamp fecha){
+        Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into consultas (IdConsultas,IdDelPacienteConsultas, IdDelMedicoConsultas, IdDeEspecialidadDelMedico, PorcentajeAPP, FechaCreacion, FechaAgendada,PrecioConsulta,InformeFinal,EstadoConsulta) values (?,?,?,?,?,?,?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setInt(1, c.getIdConsultas());
+            ps.setInt(2, c.getIdPaciente());
+            ps.setInt(3, c.getIdMedico());
+            ps.setInt(4, c.getIdEspecialidadMedico());
+            ps.setDouble(5, c.getPorcentaje());
+            java.sql.Date fechaSql = new java.sql.Date(c.getFechaCreacion().getTime());
+            ps.setDate(6, fechaSql);
+            ps.setTimestamp(7, fecha);
+            ps.setDouble(8, c.getPrecio());
+            ps.setString(9, c.getInformeFinal());
+            ps.setString(10, c.getEstado());
+            ps.executeUpdate();    
+            Con.CerrarConexiones();
+            Conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
 }

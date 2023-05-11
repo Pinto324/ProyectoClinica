@@ -6,6 +6,7 @@
 package Servicios.Laboratorios;
 
 import BaseDeDatos.SolicitudDeLaboratorioDB;
+import Objetos.Laboratorios.SolicitudDeLaboratorio;
 import java.util.List;
 
 /**
@@ -22,4 +23,5 @@ public class SolicitudesServicio {
     public int CrearSolicitud(int IdLab, int IdPaciente, String Estado){return DB.CrearSolicitud(IdLab, IdPaciente, Estado);}
     public void OficializarSolicitud(int Id){DB.OficializarSolicitud(Id);}
     public List<String> ListaDeSolicitudesPaciente(int idPaciente){return DB.ListaDeSolicitudesPaciente(idPaciente);}
+     public void IngresarSolicitudCarga(SolicitudDeLaboratorio s){DB.IngresarSolicitudCarga(s);}
 }
