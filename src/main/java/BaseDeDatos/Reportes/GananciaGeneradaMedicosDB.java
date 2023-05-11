@@ -222,4 +222,150 @@ public class GananciaGeneradaMedicosDB {
         }
         return null;
     }
+    //metodos para los administrador
+    public List<String> ReporteTop5Medico(){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT u.NombreUsuario, COUNT(*) AS total_consultas, SUM(c.PrecioConsulta) AS total_precio ,SUM(g.CantidadGeneradaAppGGM) AS total_ganancia FROM usuariosmedic u INNER JOIN consultas c ON u.IdUsuario = c.IdDelMedicoConsultas INNER JOIN gananciageneradamedicos g ON c.IdConsultas = g.IdConsultaGGM GROUP BY u.NombreUsuario ORDER BY total_ganancia desc;");
+            while(U.next()){  
+                String dato;
+                dato = U.getString(1);
+                Info.add(dato);
+                dato = String.valueOf(U.getInt(2));
+                Info.add(dato);
+                dato = String.valueOf(U.getDouble(3));
+                Info.add(dato); 
+                dato = String.valueOf(U.getDouble(4));
+                Info.add(dato); 
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+        //metodos para top 5 labs
+    public List<String> ReporteTop5Labs(){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT u.NombreUsuario, COUNT(*) AS total_examenes, SUM(g.CantidadPagadaAPP+g.CantidadGeneradaLabAPP) AS total_precio ,SUM(g.CantidadPagadaAPP) AS total_ganancia FROM usuariosmedic u INNER JOIN solicitudlaboratorio c ON u.IdUsuario = c.IdDelLaboratorioSL INNER JOIN gananciageneradalabs g ON c.IdSolicitudLaboratorio = g.IdDeSolicitud INNER JOIN exameneslaboratorios e ON g.IdDelExamen = e.IdExamenEL GROUP BY u.NombreUsuario ORDER BY total_ganancia desc;");
+            while(U.next()){  
+                String dato;
+                dato = U.getString(1);
+                Info.add(dato);
+                dato = String.valueOf(U.getInt(2));
+                Info.add(dato);
+                dato = String.valueOf(U.getDouble(3));
+                Info.add(dato); 
+                dato = String.valueOf(U.getDouble(4));
+                Info.add(dato); 
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+          //metodo para los porcentajes de especialidades
+    public List<String> HistorialPorcentajeEspecialidades(){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM porcentajedecobroappconsultas INNER JOIN especialidades ON especialidades.IdEspecialidades = IdDeEspecialidadPorcentaje WHERE Activa=false;");
+            while(U.next()){  
+                String dato = "Especialidad";
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreEspecialidad"));
+                Info.add(dato);
+                dato = String.valueOf(U.getDouble(U.findColumn("Porcentaje")));
+                Info.add(dato);
+                dato = String.valueOf(U.getDate(U.findColumn("FechaDeInicio")));
+                Info.add(dato); 
+                dato = String.valueOf(U.getDate(U.findColumn("FechaFinal")));
+                Info.add(dato); 
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+              //metodo para los porcentajes de examenes
+    public List<String> HistorialPorcentajeExamenes(){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM porcentajedecobroappexamenes INNER JOIN tipodeexamenes ON tipodeexamenes.IdTipoDeExamenes = IdDelExamenPCE WHERE ActivaPCE=false;");
+            while(U.next()){  
+                String dato = "Examen";
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreExamen"));
+                Info.add(dato);
+                dato = String.valueOf(U.getDouble(U.findColumn("PorcentajePCE")));
+                Info.add(dato);
+                dato = String.valueOf(U.getDate(U.findColumn("FechaDeInicioPCE")));
+                Info.add(dato); 
+                dato = String.valueOf(U.getDate(U.findColumn("FechaFinalPCE")));
+                Info.add(dato); 
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    //conseguir el total de ingresos de consultas
+    public List<String> TotalIngresosConsulta(String FI, String FF){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT COUNT(*) as total_filas, SUM(CantidadGeneradaAppGGM) as total_generado FROM clinica_medica.gananciageneradamedicos INNER JOIN consultas ON consultas.IdConsultas = gananciageneradamedicos.IdConsultaGGM WHERE FechaAgendada BETWEEN '"+FI+"' AND '"+FF+"';");
+            while(U.next()){  
+                String dato = "Consultas";
+                Info.add(dato);
+                dato = U.getString(U.findColumn("total_filas"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("total_generado"));
+                Info.add(dato);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+        //conseguir el total de ingresos de consultas
+    public List<String> TotalIngresosExamenes(String FI, String FF){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT COUNT(*) as total_filas, SUM(CantidadPagadaAPP) as total_generado FROM clinica_medica.gananciageneradalabs INNER JOIN solicitudlaboratorio ON solicitudlaboratorio.IdSolicitudLaboratorio = gananciageneradalabs.IdDeSolicitud WHERE FechaDeMovLab BETWEEN '"+FI+"' AND '"+FF+"';");
+            while(U.next()){  
+                String dato = "Examenes";
+                Info.add(dato);
+                dato = U.getString(U.findColumn("total_filas"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("total_generado"));
+                Info.add(dato);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
 }

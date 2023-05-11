@@ -80,6 +80,7 @@ public class ControladorConsultas extends HttpServlet {
             try {
                 int IdPaciente = Integer.valueOf(request.getParameter("IdPaciente"));
                 String jsonEspecialidades = gson.toJson(CS.ConsultasRevisionDeExamenPaciente(IdPaciente));
+                System.out.println(jsonEspecialidades);
                 response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
                 out.print(jsonEspecialidades);

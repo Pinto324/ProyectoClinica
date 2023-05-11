@@ -1,0 +1,90 @@
+<div>
+    <div id="divArriba">
+      <button type="button" (click)="PorcentajesApp()" >Historial Porcentajes</button>
+      <button type="button" (click)="Top5Medicos()">Top Médicos</button>
+      <button type="button" (click)="Top5Labs()">Top Laboratorios</button>
+      <button type="button" (click)="MostrarFecha()">Total de ingresos</button>
+    </div>
+    <div *ngIf="mostrarFecha" class="divFecha">
+        <div class="divInterno">
+            <label for="fecha">Fecha Inicial:</label>
+            <input type="date" id="fecha" [(ngModel)]="fechaInicial">
+        </div>
+        <div class="divInterno">
+            <label for="fecha">Fecha final:</label>
+            <input type="date" id="fecha" [(ngModel)]="fechaFinal">
+        </div>
+        <button (click)="buscarConFechas()"  type="button" >Buscar</button>
+    </div>
+   
+    <div class="divCuerpo">
+        <!-- tabla de top 5 pacientes -->
+        <ng-container *ngIf="mostrarTop">
+            <table>
+                <thead>
+                  <tr>
+                    <th *ngIf="mostrarPacientes">Nombre Del Médico</th>                   
+                    <th *ngIf="mostrarPacientes">cantidad de consultas</th>
+                    <th *ngIf="mostrarPacientes">Total de las consultas</th>
+                    <th *ngIf="mostrarLaboratorios">Nombre Del Laboratorio</th>
+                    <th *ngIf="mostrarLaboratorios">cantidad de Examenes</th>
+                    <th *ngIf="mostrarLaboratorios">Total de exámenes</th>
+                    <th *ngIf="mostrarPorcentaje">Tipo</th>
+                    <th *ngIf="mostrarPorcentaje">Nombre</th>
+                    <th *ngIf="mostrarPorcentaje">Porcentaje</th>
+                    <th *ngIf="mostrarPorcentaje">Fecha de inicio</th>
+                    <th *ngIf="mostrarPorcentaje">Fecha final</th>
+                    <th *ngIf="!(mostrarPorcentaje)">Total de ingreso a la app</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="!(mostrarPorcentaje)">  
+                  <ng-container *ngFor="let dato of Data; let i = index;">
+                    <ng-container *ngIf="i % 4 === 0">
+                      <tr>
+                        <ng-container *ngFor="let columna of [0, 1, 2,3]; let j = index;">
+                          <td>{{ Data[i+j] }}</td>
+                        </ng-container>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>  
+                <ng-container *ngIf="mostrarPorcentaje">  
+                    <ng-container *ngFor="let dato of Data; let i = index;">
+                      <ng-container *ngIf="i % 5 === 0">
+                        <tr>
+                          <ng-container *ngFor="let columna of [0, 1, 2,3,4]; let j = index;">
+                            <td>{{ Data[i+j] }}</td>
+                          </ng-container>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>  
+                </tbody>
+              </table>
+        </ng-container>
+        <ng-container *ngIf="mostrarTotal">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Tipo</th>  
+                    <th>Cantidad total</th>                 
+                    <th>Ingreso Total</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                  <ng-container *ngFor="let dato of Data; let i = index;">
+                    <ng-container *ngIf="i % 3 === 0">
+                      <tr>
+                        <ng-container *ngFor="let columna of [0, 1,2]; let j = index;">
+                          <td>{{ Data[i+j] }}</td>
+                        </ng-container>
+                      </tr>
+                    </ng-container>
+                  </ng-container> 
+                </tbody>
+              </table>
+        </ng-container>
+    </div>  
+  </div>
+  

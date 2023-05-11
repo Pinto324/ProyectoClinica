@@ -78,7 +78,6 @@ export class MenuReportePacienteComponent {
         this.InfoConsultas = [];
         this.getHistorialConsultas().subscribe(Historial => {
           this.Consultas = Historial;
-          console.log(Historial);
           for (let i = 0; i < this.Consultas.length; i += 6) {
             this.InfoConsultas.push({
               Nombre: this.Consultas[i],
@@ -177,9 +176,9 @@ export class MenuReportePacienteComponent {
   MostrarHistorial(){
     if(this.comprobarFechas()){
       this.CerrarReportes();
-      this.ReiniciarFechas();
       this.mostrarHistorial = true;
       this.llenarElHistorial();
+      this.ReiniciarFechas();
     }
   }
   //metodo para mostrar el reporte de recargas
@@ -193,6 +192,7 @@ export class MenuReportePacienteComponent {
   llenarElHistorial(){
     this.getHistorial().subscribe(Historial => {
       this.Historial = Historial;
+      console.log(this.Historial)
       for (let i = 0; i < this.Historial.length; i += 7) {
         this.InfoHistorial.push({
           Nombre: this.Historial[i],

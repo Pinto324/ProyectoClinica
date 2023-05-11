@@ -33,6 +33,8 @@ import { ModalExamenesPendientesPacientesComponent } from './Componentes/home-pa
 import { ModalAgregarExamenesSolicitudPacientesComponent } from './Componentes/home-paciente/menu-solicitudes-examenes/modal-agregar-examenes-solicitud-pacientes/modal-agregar-examenes-solicitud-pacientes.component';
 import { MenuReportesComponent } from './Componentes/home-laboratorios/menu-reportes/menu-reportes.component';
 import { MenuReportePacienteComponent } from './Componentes/home-paciente/menu-reporte-paciente/menu-reporte-paciente.component';
+import { MenuReportesAdminComponent } from './Componentes/home-admin/menu-reportes-admin/menu-reportes-admin.component';
+import { MenuEspecialidadesAdminComponent } from './Componentes/home-admin/menu-especialidades-admin/menu-especialidades-admin.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Ruta predeterminada que redirige al usuario a la página de inicio
@@ -74,7 +76,9 @@ const routes: Routes = [
     ModalExamenesPendientesPacientesComponent,
     ModalAgregarExamenesSolicitudPacientesComponent,
     MenuReportesComponent,
-    MenuReportePacienteComponent
+    MenuReportePacienteComponent,
+    MenuReportesAdminComponent,
+    MenuEspecialidadesAdminComponent
   ],
   imports: [
     BrowserModule,

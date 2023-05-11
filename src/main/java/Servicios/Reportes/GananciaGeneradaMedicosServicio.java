@@ -25,5 +25,11 @@ public class GananciaGeneradaMedicosServicio {
     public List<String> HistorialDeRecargasPaciente(int IdPaciente){return DB.HistorialPacienteRecargas(IdPaciente);}
     public List<String> ConsultasPorEspecialidad(int IdPaciente, int IdEspe,String FI, String FF){return DB.HistorialConsultasEspecialidad(IdPaciente, IdEspe,FI,FF);}
     public List<String> ExamenPorTipo(int IdPaciente, int IdEspe,String FI, String FF){return DB.HistorialExamenesPorTipo(IdPaciente, IdEspe,FI,FF);}
-
+    //reporte de admins
+    public List<String> ReporteTop5Medicos(){return DB.ReporteTop5Medico();}
+    public List<String> ReporteTop5Labs(){return DB.ReporteTop5Labs();}
+    public List<String> HistorialPorcentajeEspe(){return DB.HistorialPorcentajeEspecialidades();}
+    public List<String> HistorialPorcentajeExamenes(){return DB.HistorialPorcentajeExamenes();}
+    public List<String> TotalDeIngresosConsulta(String FI, String FF){return DB.TotalIngresosConsulta(FI, FF);}
+    public List<String> TotalDeIngresosExamen(String FI, String FF){return DB.TotalIngresosExamenes(FI, FF);}
 }

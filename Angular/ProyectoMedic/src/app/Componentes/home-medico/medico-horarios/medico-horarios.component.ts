@@ -44,18 +44,12 @@ export class MedicoHorariosComponent {
         const body = { HoraEntrada: HoraEntrada, HoraSalida: HoraSalida, IdMedico: IdMedico};
         this.http.post(`http://localhost:8080/Proyecto2Clinica/ControladorHorario?accion=CrearHorario&HEntrada=${HoraEntrada}:00&HSalida=${HoraSalida}:00&IdMedico=${IdMedico}`, body).subscribe(
           response => {
-            if (response === 201) {
-              // El horario se creó exitosamente
-             
-            }
+            alert('Horario creado existosamente.');
           },
           error => {
-            if (error.status=== 409) {
               alert('No se puede agregar el horario, se solapa con otro horario existente.');
-            } 
           }
         );
-        alert('Horario creado existosamente.');
         this.ngOnInit();
       }
     }

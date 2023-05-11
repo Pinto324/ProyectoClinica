@@ -95,7 +95,37 @@ public class ControladorDeReportes extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
-        }  
+        }else if(accion != null && accion.equals("Top5Medicos")){
+            String jsonEspecialidades = gson.toJson(Servicio.ReporteTop5Medicos());
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("Top5Labs")){
+            String jsonEspecialidades = gson.toJson(Servicio.ReporteTop5Labs());
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("HistorialPorcentajes")){
+              List<String> Datos = new ArrayList<>();
+            Datos.addAll(Servicio.HistorialPorcentajeEspe());
+            Datos.addAll(Servicio.HistorialPorcentajeExamenes());
+            String jsonEspecialidades = gson.toJson(Datos);
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }else if(accion != null && accion.equals("TotalIngresos")){
+              List<String> Datos = new ArrayList<>();
+            Datos.addAll(Servicio.TotalDeIngresosConsulta(FechaInicio, FechaFinal));
+            Datos.addAll(Servicio.TotalDeIngresosExamen(FechaInicio, FechaFinal));
+            String jsonEspecialidades = gson.toJson(Datos);
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
+        }          
     }
         @Override
     protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

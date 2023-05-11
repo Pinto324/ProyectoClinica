@@ -15,22 +15,26 @@
         <header style="z-index: 4;">
             <div class="contenedorGrande">
                 <div class="contenedor">
-                    <div class="nav-link" id="menuReportes">
+                    <div (click)="mostrarReportes()" class="nav-link" id="menuReportes">
                         <img src="https://cdn-icons-png.flaticon.com/512/4701/4701237.png" width="60" height="60">
                         <label>Reportes</label>
                     </div>
                     <a  class="nav-link">
-                        <img src="https://cdn-icons-png.flaticon.com/512/8890/8890577.png" width="60" height="60">
-                        <label>Menu Asignar Examen</label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/3437/3437466.png" width="60" height="60">
+                        <label>Menu Solicitudes Especialidades</label>
+                    </a>
+                    <a  class="nav-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1127/1127688.png" width="60" height="60">
+                        <label>Menu Solicitudes Examenes</label>
                     </a>
                 </div>
-                <div (click)="MostrarCargaDeDatos = true" class="contenedor">
+                <div (click)="mostrarcarga()" class="contenedor">
                     <a id="logo">Administración</a>
                 </div>
                 <div class="contenedor">
                     <a  class="nav-link">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2000/2000842.png" width="60" height="60">
-                        <label>Menu Solicitudes</label>
+                        <img src="https://cdn-icons-png.flaticon.com/512/7376/7376530.png" width="60" height="60">
+                        <label>Porcentajes de cobro</label>
                     </a>
                     <a class="nav-link" href="../Login.jsp?cerrar=true">
                         <img src="https://cdn-icons-png.flaticon.com/512/2574/2574200.png" width="60" height="60">
@@ -47,6 +51,7 @@
                     <input type="file" name="file" (change)="onFileSelected($event)">
                     <button (click)="onUpload()">Subir archivo</button>
                 </div>
+                <app-menu-reportes-admin *ngIf="MostrarReportes"></app-menu-reportes-admin>
             </div>
         </section>
     </body>
