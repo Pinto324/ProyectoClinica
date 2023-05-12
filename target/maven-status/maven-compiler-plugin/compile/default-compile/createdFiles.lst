@@ -56,6 +56,7 @@ Objetos\ConsultasHija.class
 BaseDeDatos\ExamenesConsultas.class
 Objetos\Medicos\EspecialidadesMedicos.class
 Controlador\Medicos\ControladorExamenesDeConsultas.class
+Utilidades\Reportes.class
 Servicios\EspecialidadesServicio.class
 Servicios\Reportes\GananciaGeneradaMedicosServicio.class
 Controlador\Medicos\ControladorHorario.class
