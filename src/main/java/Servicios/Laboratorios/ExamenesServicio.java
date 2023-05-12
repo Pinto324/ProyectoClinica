@@ -21,6 +21,7 @@ public class ExamenesServicio {
     public ExamenesServicio() {
     }
     public List<TipoDeExamen> ListaExamenes(){return DB.ListaDeExamenes();}
+    public List<TipoDeExamen> ListaExamenesPendientes(){return DB.ListaDeExamenesPendientes();}
     public int BuscarIdPorNombre(String Nombre){return DB.BuscarPorUserName(Nombre);}
     public List<String> ListaDeExamenesPorId(int IdLab){return DB.ListaExamenesLab(IdLab);}
     public List<String> ListaDeExamenesConInfoID(){return DB.LabConInfo();}
@@ -32,6 +33,12 @@ public class ExamenesServicio {
     public List<String> ListaDeExamenesParaCrearSolicitud(int IdLab){return DBSolicitud.ListaExamenesSolicitudes(IdLab);}
     //metodo para crear examenes carga de archivos
     public void CrearExamenCarga(TipoDeExamen e){DB.CrearExamen(e);}
+    public boolean CrearExamenPendiente(String Nombre,String Desc){return DB.CrearExamenPendiente(Nombre, Desc);}
     //metodo para AsignarExamenLaboratorio
     public void AsignarExamenLaboratorioCarga(ExamenesLaboratorios e){DBSolicitud.AsignarExamenLaboratorio(e);}
+    //metodo para las asignaciones de examenes admin
+    public List<String> ListaDeAsignaciones(){return DB.SolicitudesDeAsignacionDeExamen();}
+    public boolean ModificarEstado(int Id, String Estado){return DB.ModificarEstado(Id, Estado);}
+    public boolean ModificarEstadoDeExamenNuevo(int id){return DB.ModificarEstadoDeExamenNuevo(id);}
+    public boolean EliminarEstadoNuevo(int id){return DB.EliminarExamenNuevo(id);}
 }

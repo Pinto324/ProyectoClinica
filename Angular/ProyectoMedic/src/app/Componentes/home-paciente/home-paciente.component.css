@@ -155,3 +155,8 @@ button {
     background-color: #fdcc8df4;
     border: 5px solid black;
   }
+  app-menu-solicitar-consulta,app-menu-consultas-pendientes,app-menu-solicitudes-examenes, app-menu-examenes-pendientes,app-menu-reporte-paciente{
+    max-height: 500px;
+    overflow-y: auto;
+  }
+ 

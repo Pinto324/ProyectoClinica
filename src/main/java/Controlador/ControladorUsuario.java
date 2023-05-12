@@ -11,6 +11,10 @@ import Utilidades.GsonUtils;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,16 +40,33 @@ public class ControladorUsuario extends HttpServlet {
     // POST students/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String pathInfo = request.getPathInfo();
+       response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        String accion = request.getParameter("accion");
+        if (accion != null && accion.equals("CrearUsuario")) {
+            String nombre = request.getParameter("nombre");
+            String nombreUsuario = request.getParameter("usuario");
+            String password = request.getParameter("contrasena");
+            String direccion = request.getParameter("direccion");
+            String telefono = request.getParameter("telefono");
+            String correoElectronico = request.getParameter("correo");
+            String cui = request.getParameter("cui");
+            String fechaNacimiento = request.getParameter("fecha");
+            String tipoUsuario = request.getParameter("tipo");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date parsed = null;
+           try {
+               parsed = format.parse(fechaNacimiento);
+           } catch (ParseException ex) {
+               Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            java.sql.Date date = new java.sql.Date(parsed.getTime());
+            Usuario User = new Usuario(-1, nombre, nombreUsuario, password, direccion, cui, telefono, correoElectronico, date, tipoUsuario, 0);
+            if(usuarioServicio.CrearUsuarioNuevo(User)){
+            response.setStatus(HttpServletResponse.SC_OK);
+            }else{
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
 
-        if(pathInfo == null || pathInfo.equals("/")){
-            var user = gsonUsuario.readFromJson((jakarta.servlet.http.HttpServletRequest) request, Usuario.class);
-            usuarioServicio.CrearUsuario(user);
-            response.setStatus(HttpServletResponse.SC_CREATED);
-            gsonUsuario.sendAsJson((jakarta.servlet.http.HttpServletResponse) response, user);
-        }
-        else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
     

@@ -82,15 +82,12 @@ public class ControladorExamenesConsultas extends HttpServlet {
     
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // Obtener el ID del objeto a eliminar desde la URL
     int IdExamen = ServExamenes.BuscarIdPorNombre(request.getParameter("Nombre"));
     int IdConsulta = Integer.valueOf(request.getParameter("IdConsulta"));
     ExamenesSolicitadosConsultas E = new ExamenesSolicitadosConsultas(IdConsulta, IdExamen, null);
     if (Servicio.EliminarSolicitud(E)) {
-        // Si se eliminó correctamente, retornar un mensaje de éxito
         response.setStatus(HttpServletResponse.SC_OK);
     } else {
-        // Si no se pudo eliminar, retornar un mensaje de error
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 }

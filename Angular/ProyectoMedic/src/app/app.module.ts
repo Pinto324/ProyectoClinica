@@ -35,6 +35,10 @@ import { MenuReportesComponent } from './Componentes/home-laboratorios/menu-repo
 import { MenuReportePacienteComponent } from './Componentes/home-paciente/menu-reporte-paciente/menu-reporte-paciente.component';
 import { MenuReportesAdminComponent } from './Componentes/home-admin/menu-reportes-admin/menu-reportes-admin.component';
 import { MenuEspecialidadesAdminComponent } from './Componentes/home-admin/menu-especialidades-admin/menu-especialidades-admin.component';
+import { MenuSolicitarExamenesAdminComponent } from './Componentes/home-admin/menu-solicitar-examenes-admin/menu-solicitar-examenes-admin.component';
+import { MenuSolicitarEspecialidadesAdminComponent } from './menu-solicitar-especialidades-admin/menu-solicitar-especialidades-admin.component';
+import { MenuPorcentajesAdminComponent } from './Componentes/home-admin/menu-porcentajes-admin/menu-porcentajes-admin.component';
+import { RegistrarUsuarioComponent } from './Componentes/login/registrar-usuario/registrar-usuario.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   // Ruta predeterminada que redirige al usuario a la página de inicio
@@ -78,7 +82,11 @@ const routes: Routes = [
     MenuReportesComponent,
     MenuReportePacienteComponent,
     MenuReportesAdminComponent,
-    MenuEspecialidadesAdminComponent
+    MenuEspecialidadesAdminComponent,
+    MenuSolicitarExamenesAdminComponent,
+    MenuSolicitarEspecialidadesAdminComponent,
+    MenuPorcentajesAdminComponent,
+    RegistrarUsuarioComponent
   ],
   imports: [
     BrowserModule,

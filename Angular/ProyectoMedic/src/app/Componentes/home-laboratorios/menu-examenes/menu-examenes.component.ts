@@ -19,7 +19,6 @@ export class MenuExamenesComponent {
     })
     this.getExamenesAsignados().subscribe(info => {
       this.examenesAgregados = info;
-      console.log(this.examenesAgregados);
     })
   }
   //metodo para conseguir los examenes:

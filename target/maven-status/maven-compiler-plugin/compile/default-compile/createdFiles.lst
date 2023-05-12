@@ -8,8 +8,10 @@ BaseDeDatos\Conexion.class
 Controlador\Laboratorios\ControladorExamenesLaboratorios.class
 Objetos\Consultas.class
 Servicios\Medicos\PorcentajeConsultasServicio.class
+Servicios\PorcentajeServicio.class
 Controlador\ControladorDeReportes.class
 BaseDeDatos\SolicitudDeLaboratorioDB.class
+Controlador\ControladorPorcentajes.class
 BaseDeDatos\EspecialidadesMedicosDB.class
 BaseDeDatos\EspecialidadesDB.class
 Controlador\ControladorConsultas.class
@@ -42,6 +44,7 @@ Objetos\PorcentajeDeCobroAppConsultas.class
 Servicios\Reportes\GananciaGeneradaLabsServicio.class
 Servicios\ConsultasServicio.class
 Servicios\ExamenesConsultasServicio.class
+BaseDeDatos\PorcentajeDB.class
 Controlador\ControladorUsuario.class
 Objetos\ExamenesSolicitadosConsultas.class
 BaseDeDatos\Medicos\PorcentajeConsultasDB.class

@@ -15,7 +15,7 @@
         <header style="z-index: 4;">
             <div class="contenedorGrande">
                 <div class="contenedor">
-                    <div class="nav-link" (click)="abrirMenuReportes()" id="menuReportes">
+                    <div *ngIf="NoExamenes" class="nav-link" (click)="abrirMenuReportes()" id="menuReportes">
                         <img src="https://cdn-icons-png.flaticon.com/512/4701/4701237.png" width="60" height="60">
                         <label>Reportes</label>
                     </div>
@@ -24,11 +24,11 @@
                         <label>Menu Asignar Examen</label>
                     </a>
                 </div>
-                <div class="contenedor">
+                <div (click)="abrirExamen()" *ngIf="NoExamenes" class="contenedor">
                     <a id="logo">Laboratorios</a>
                 </div>
                 <div class="contenedor">
-                    <a (click)="abrirFormularioSolicitud()" class="nav-link">
+                    <a *ngIf="NoExamenes" (click)="abrirFormularioSolicitud()" class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/2000/2000842.png" width="60" height="60">
                         <label>Menu Solicitudes</label>
                     </a>
@@ -42,6 +42,14 @@
     </section>
         <section id="sectionLibro">
             <div class="contenedorPrincipal">
+                <div class="Examen" *ngIf="EnvioEspecialidad">
+                    <h1>Deseas que se agregué un nuevo tipo de exámen? llena el formulario!</h1>
+                    <label>Nombre Examen:</label>
+                    <input type="text" [(ngModel)]="NombreEspe">
+                    <label>Descripción del examen:</label>
+                    <textarea type="text" [(ngModel)]="Descripcion"></textarea>
+                    <button type="button" (click)="EnviarSoliExamen()">Mandar Solicitud</button>
+                </div>
                 <app-menu-solicitudes *ngIf="MostrarSolicitud"></app-menu-solicitudes>
                 <app-menu-examenes *ngIf="MostrarExamen"></app-menu-examenes>
                 <app-menu-reportes *ngIf="MostrarReportes"></app-menu-reportes>

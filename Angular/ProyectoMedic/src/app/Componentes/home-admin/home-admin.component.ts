@@ -12,6 +12,9 @@ export class HomeAdminComponent {
     protected ArchivoDeCarga: any;
     //variables para mostrar menus:
     protected MostrarReportes = false;
+    protected MostrarExamenes = false;
+    protected MostrarEspecialidades = false;
+    protected MostrarPorcentaje = false;
     //constructor
     constructor(private http: HttpClient) {}
     //metodos de utilidades:
@@ -19,6 +22,9 @@ export class HomeAdminComponent {
   cerrarTodo(){
     this.MostrarCargaDeDatos = false;
     this.MostrarReportes = false;
+    this.MostrarExamenes = false;
+    this.MostrarEspecialidades = false;
+    this.MostrarPorcentaje = false;
   }
   //metodo para la carga de datos:
   onUpload(): void {
@@ -44,6 +50,18 @@ export class HomeAdminComponent {
   mostrarcarga(){
     this.cerrarTodo();
     this.MostrarCargaDeDatos = true;
+  }
+  mostrarExamenes(){
+    this.cerrarTodo();
+    this.MostrarExamenes = true;
+  }
+  mostrarEspe(){
+    this.cerrarTodo();
+    this.MostrarEspecialidades = true;
+  }
+  mostrarPorcentaje(){
+    this.cerrarTodo();
+    this.MostrarPorcentaje = true;
   }
 
 }

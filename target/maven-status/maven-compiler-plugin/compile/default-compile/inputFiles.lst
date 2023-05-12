@@ -45,12 +45,15 @@ C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeD
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servicios\ConsultasServicio.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\UsuarioDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\Medicos\PorcentajeConsultasDB.java
+C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorPorcentajes.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\ExamenesSolicitadosConsultas.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorLogin.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\Laboratorios\ControladorExamenesSolicitudes.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\Laboratorios\SolicitudDeLaboratorio.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\Laboratorios\ExamenesLaboratorios.java
+C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\PorcentajeDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Objetos\PorcentajeDeCobroAppConsultas.java
+C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Servicios\PorcentajeServicio.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\ExamenesConsultas.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\BaseDeDatos\Laboratorios\ExamenesSolicitudesDB.java
 C:\Users\branp\Documents\NetBeansProjects\Proyecto2Clinica\src\main\java\Controlador\ControladorUsuario.java

@@ -15,7 +15,7 @@
         <header style="z-index: 4;">
             <div class="contenedorGrande">
                 <div class="contenedor">
-                    <div class="nav-link" (click)="abrirMenuReportes()" id="menuReportes">
+                    <div *ngIf="PrimerInicio()" class="nav-link" (click)="abrirMenuReportes()" id="menuReportes">
                         <img src="https://cdn-icons-png.flaticon.com/512/4701/4701237.png" width="60" height="60">
                         <label>Reportes</label>
                     </div>
@@ -28,15 +28,15 @@
                         <label>Menu Especialidades</label>
                     </a>
                 </div>
-                <div class="contenedor">
+                <div (click)="abrirEnviarExamen()" class="contenedor">
                     <a href="MenuInicial.jsp" id="logo">Medicos</a>
                 </div>
                 <div class="contenedor">
-                    <a (click)="abrirFormularioConsulta()" class="nav-link">
+                    <a *ngIf="PrimerInicio()" (click)="abrirFormularioConsulta()" class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/1469/1469884.png" width="60" height="60">
                         <label>Menu consultas</label>
                     </a>
-                    <a (click)="abrirFormularioHistorialMedico()" class="nav-link">
+                    <a *ngIf="PrimerInicio()" (click)="abrirFormularioHistorialMedico()" class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/1764/1764277.png" width="60" height="60">
                         <label>Ver Historial médico</label>
                     </a>
@@ -50,6 +50,14 @@
     </section>
         <section id="sectionLibro">
             <div class="contenedorPrincipal">
+                <div class="Examen" *ngIf="EnvioEspecialidad">
+                    <h1>Deseas que se agregué una nueva especialidad? llena el formulario!</h1>
+                    <label>Nombre Especialidad:</label>
+                    <input type="text" [(ngModel)]="NombreEspe">
+                    <label>Descripción de la especialidad:</label>
+                    <textarea type="text" [(ngModel)]="Descripcion"></textarea>
+                    <button type="button" (click)="EnviarSoliExamen()">Mandar Solicitud</button>
+                </div>
                 <app-medico-menu-especialidades *ngIf="mostrarFormularioEspecialidad"></app-medico-menu-especialidades> 
                 <app-medico-horarios *ngIf="mostrarFormularioHorario"></app-medico-horarios>  
                 <app-medico-menu-consultas *ngIf="mostrarFormularioConsulta"></app-medico-menu-consultas>  
@@ -59,4 +67,3 @@
         </section>
     </body>
 </html>
-

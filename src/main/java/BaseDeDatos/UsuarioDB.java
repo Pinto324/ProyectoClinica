@@ -9,6 +9,8 @@ import Objetos.Especialidades;
 import Objetos.Usuario;
 import Servicios.Reportes.GananciaGeneradaLabsServicio;
 import Servicios.Reportes.GananciaGeneradaMedicosServicio;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -285,5 +287,65 @@ public class UsuarioDB {
         }
         return -2;
     }
-    
+    //metodo para crear un usuario nuevo:
+    public boolean CrearUsuarioNuevo(Usuario user){
+    Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] valorHashCalculado = digest.digest(user.getPassword().getBytes());
+        String valorHashCalculadoHex = bytesToHex(valorHashCalculado);
+            sql = "insert into UsuariosMedic (NombreUsuario, Username, Password, Direccion, CUI, Telefono,Email,FechaNacimiento,Tipo,Saldo) values (?,?,?,?,?,?,?,?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setString(1, user.getNombre());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, valorHashCalculadoHex);
+            ps.setString(4, user.getDireccion());
+            ps.setString(5, user.getCUI());
+            ps.setString(6, user.getTelefono());
+            ps.setString(7, user.getEmail());
+            ps.setDate(8, user.getFechaNacimiento());
+            ps.setString(9, user.getTipo());
+            ps.setDouble(10, user.getSaldo());           
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("ya hay un usuario con ese id en el sistema");
+        }catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+    //metodo para confirmar contraseña encriptada
+        public boolean ComprobarContraseña(String Usuario, String contra){
+        Con = new Conexion();
+        try{
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        Rs = Con.IniciarConexion().executeQuery("select * from UsuariosMedic WHERE Username='"+Usuario+"';");
+        if (Rs.next()) {
+            String valorHashAlmacenado = Rs.getString("Password");
+            byte[] valorHashCalculado = digest.digest(contra.getBytes());
+            String valorHashCalculadoHex = bytesToHex(valorHashCalculado);
+            return valorHashAlmacenado.equals(valorHashCalculadoHex);
+        } else {
+            return false;
+        }
+        }catch(SQLException e){
+        }catch(NoSuchAlgorithmException ex){
+        
+        }
+        return false;
+    }
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b : bytes) {
+            stringBuilder.append(String.format("%02x", b));
+        }
+        return stringBuilder.toString();
+    }
 }

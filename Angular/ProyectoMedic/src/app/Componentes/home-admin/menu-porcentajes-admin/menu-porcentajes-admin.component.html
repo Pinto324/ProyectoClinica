@@ -1,0 +1,31 @@
+<div class="contenedorPrincipal">
+    <div id="divArriba">
+        <button (click)="CargarEspecialidades()"  type="button">Porcentajes de especialidades</button>
+        <button (click)="CargarExamenes()"  type="button">Porcentajes de exámenes</button>
+    </div>
+    <div *ngIf="mostrarExamen||mostrarEspecialidad" class="principal">
+        <h2 *ngIf="mostrarExamen">Porcentaje de exámenes:</h2>
+        <h2 *ngIf="mostrarEspecialidad">Porcentaje de especialidades:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Porcentaje actual</th>
+              <th>Nuevo Porcentaje</th>
+              <th>Guardar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of info">
+              <td>{{ e.IdExamen }}</td>
+              <td>{{ e.Nombre }}</td>
+              <td>{{ e.Porcentaje }}%</td>
+              <td><input class="Edit" type="number" [(ngModel)]="e.NuevoPorcentaje"min="1" max="100">%</td>
+              <td *ngIf="mostrarExamen"><button type="button" class="btn btn-primary" (click)="editarExamen(e)">Guardar</button></td>
+              <td *ngIf="mostrarEspecialidad"><button type="button" class="btn btn-primary" (click)="editarEspecialidad(e)">Guardar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>

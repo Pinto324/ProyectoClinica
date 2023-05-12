@@ -13,6 +13,8 @@ export class LoginComponent {
   username: string = "";
   password: string = "";
   errorMessage: string ="";
+  Login = true;
+  Registrar = false;
   constructor(private http: HttpClient, private UserService: UserService  ,private router: Router) { }
 
   login(username: string, password: string) {
@@ -44,10 +46,7 @@ export class LoginComponent {
               break;
             default:
               break;
-          }
-
-          // Redirigir al usuario a la página de inicio
-          
+          }  
         } else {
           alert('Nombre de usuario o contraseña incorrectos.');
         }
@@ -60,7 +59,12 @@ export class LoginComponent {
     );
   }
 
+  cerrarSegundoComponente() {
+    this.Registrar = false;
+    this.Login = true;
+  }
   goToRegister(){
-
+    this.Login = false;
+    this.Registrar = true;
   }
 }

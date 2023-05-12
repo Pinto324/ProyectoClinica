@@ -55,7 +55,15 @@ public class ControladorExamenesLaboratorios extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
+        }else if(accion != null && accion.equals("obtenerSolicitudesExamenes")){
+            String jsonEspecialidades = gson.toJson(Servicio.ListaDeAsignaciones());
+            System.out.println(jsonEspecialidades);
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
         }
+        
     }
             // POST students/
     @Override
@@ -73,7 +81,7 @@ public class ControladorExamenesLaboratorios extends HttpServlet {
                 }else{ 
                     response.sendError(HttpServletResponse.SC_CONFLICT);
                 }       
-        }
+        } 
     }
        // PUT /
     @Override
@@ -84,6 +92,14 @@ public class ControladorExamenesLaboratorios extends HttpServlet {
             int Id = Integer.valueOf(request.getParameter("IdExamen"));
             String precioNuevo = (request.getParameter("Precio"));
             if(Servicio.ModificarPrecioExamen(Id, Double.valueOf(precioNuevo))){
+                response.setStatus(HttpServletResponse.SC_OK);
+            }else{
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        }else if (accion != null && accion.equals("ActualizarEstadoAdmin")) {
+            int Id = Integer.valueOf(request.getParameter("IdEL"));
+            String Estado = (request.getParameter("Estado"));
+            if(Servicio.ModificarEstado(Id, Estado)){
                 response.setStatus(HttpServletResponse.SC_OK);
             }else{
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

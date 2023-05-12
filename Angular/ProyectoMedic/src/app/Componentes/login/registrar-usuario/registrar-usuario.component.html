@@ -1,0 +1,34 @@
+<form>
+    <label>Nombre</label>
+    <input type="text" [(ngModel)]="registro.nombre" name="nombre">
+    
+    <label>Nombre de usuario</label>
+    <input type="text" [(ngModel)]="registro.usuario" name="usuario">
+    
+    <label>Contraseña</label>
+    <input type="password" [(ngModel)]="registro.contrasena" name="contrasena">
+    
+    <label>Dirección</label>
+    <input type="text" [(ngModel)]="registro.direccion" name="direccion">
+    
+    <label>Teléfono</label>
+    <input type="text" [(ngModel)]="registro.telefono" name="telefono">
+    
+    <label>Correo electrónico</label>
+    <input type="email" [(ngModel)]="registro.correo" name="correo">
+    
+    <label>CUI</label>
+    <input type="text" [(ngModel)]="registro.cui" name="cui">
+    
+    <label>Fecha de nacimiento o registro de empresa</label>
+    <input type="date" [(ngModel)]="registro.fecha" name="fecha">
+    
+    <label>Tipo de usuario</label>
+    <select [(ngModel)]="registro.tipo" name="tipo">
+      <option value="Paciente">Paciente</option>
+      <option value="Laboratorio">Laboratorio</option>
+      <option value="Medico">Médico</option>
+    </select>
+    
+    <button type="button" (click)="enviarRegistro()" class="btn btn-primary">Registrar</button>
+</form>

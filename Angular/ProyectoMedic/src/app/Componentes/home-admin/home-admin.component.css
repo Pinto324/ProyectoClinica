@@ -156,3 +156,7 @@ input[type="file"] {
     justify-content: center;
     text-align: center;
 }
+app-menu-porcentajes-admin, app-menu-reportes-admin,app-menu-solicitar-examenes-admin,app-menu-especialidades-admin{
+    max-height: 500px;
+    overflow-y: auto;
+}

@@ -1,0 +1,53 @@
+<div class="contenedorPrincipal">
+    <div id="divArriba">
+        <button (click)=" TablaDeExamanes()"  type="button">Solicitudes de nuevos examenes</button>
+        <button (click)="TablaAsignaciones()"  type="button">Asignacion de examenes a laboratorios</button>
+    </div>
+    <div *ngIf="boton" class="principal">
+        <h2>Solicitudes de laboratorios:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th *ngIf="mostrarSolicitudes">Nombre del laboratorio:</th>
+              <th>Nombre del exámen</th>
+              <th *ngIf="mostrarSolicitudes">Precio</th>
+              <th *ngIf="mostrarIngresos">Descripción del exámen</th>
+              <th>Aceptar</th>
+              <th>Rechazar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="mostrarSolicitudes">
+              <ng-container *ngFor="let dato of DataTabla; let i = index;">
+                  <ng-container *ngIf="i % 4 === 0">
+                    <tr>
+                      <ng-container *ngFor="let columna of [0, 1, 2]; let j = index;">
+                      <td>{{ DataTabla[i + j + 1] }}</td>
+                      </ng-container>
+                      <td>
+                        <button *ngIf="mostrarSolicitudes" type="button" class="btn btn-primary" (click)="CambiarEstado(DataTabla[i], 'Activa')">Aceptar</button>
+                      </td>
+                      <td>
+                          <button *ngIf="mostrarSolicitudes" type="button" class="btn btn-primary" (click)="CambiarEstado(DataTabla[i],'Rechazada')">Rechazar</button>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="mostrarIngresos">
+                <ng-container *ngFor="let dato of dataExamen; let i = index;">
+                      <tr>
+                        <td>{{dato.nombreExamen}}</td>
+                        <td>{{dato.descripcionExamen}}</td>
+                        <td>
+                          <button *ngIf="mostrarIngresos" type="button" class="btn btn-primary" (click)="aceptarExamen(dato.idTipoDeExamenes)">Aceptar</button>
+                        </td>
+                        <td>
+                            <button *ngIf="mostrarIngresos" type="button" class="btn btn-primary" (click)="eliminarExamen(dato.idTipoDeExamenes)">Rechazar</button>
+                        </td>
+                      </tr>
+                  </ng-container>
+              </ng-container>
+          </tbody>
+        </table>
+</div>

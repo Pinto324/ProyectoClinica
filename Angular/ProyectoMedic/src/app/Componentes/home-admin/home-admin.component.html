@@ -19,11 +19,11 @@
                         <img src="https://cdn-icons-png.flaticon.com/512/4701/4701237.png" width="60" height="60">
                         <label>Reportes</label>
                     </div>
-                    <a  class="nav-link">
+                    <a (click)="mostrarEspe()"  class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/3437/3437466.png" width="60" height="60">
                         <label>Menu Solicitudes Especialidades</label>
                     </a>
-                    <a  class="nav-link">
+                    <a (click)="mostrarExamenes()"  class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/1127/1127688.png" width="60" height="60">
                         <label>Menu Solicitudes Examenes</label>
                     </a>
@@ -32,7 +32,7 @@
                     <a id="logo">Administración</a>
                 </div>
                 <div class="contenedor">
-                    <a  class="nav-link">
+                    <a (click)="mostrarPorcentaje()"  class="nav-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/7376/7376530.png" width="60" height="60">
                         <label>Porcentajes de cobro</label>
                     </a>
@@ -52,6 +52,9 @@
                     <button (click)="onUpload()">Subir archivo</button>
                 </div>
                 <app-menu-reportes-admin *ngIf="MostrarReportes"></app-menu-reportes-admin>
+                <app-menu-solicitar-examenes-admin *ngIf="MostrarExamenes"></app-menu-solicitar-examenes-admin>
+                <app-menu-especialidades-admin *ngIf="MostrarEspecialidades"></app-menu-especialidades-admin>
+                <app-menu-porcentajes-admin *ngIf="MostrarPorcentaje"></app-menu-porcentajes-admin>
             </div>
         </section>
     </body>

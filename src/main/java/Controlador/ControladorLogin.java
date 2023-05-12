@@ -37,7 +37,7 @@ public class ControladorLogin extends HttpServlet {
         Usuario user = null;
         if(usuarioServicio.BuscarUsuarioPorUsername(username)!=null){
             user = usuarioServicio.BuscarUsuarioPorUsername(username);
-            valid = user.getPassword().equals(password);
+            valid = usuarioServicio.comprobarContraseña(username, password);
         }
         // Configurar la respuesta HTTP para enviar la respuesta JSON
         response.setContentType("application/json");
@@ -51,7 +51,6 @@ public class ControladorLogin extends HttpServlet {
             responseData.addProperty("id", user.getCodigo());
             responseData.addProperty("tipo", user.getTipo());
         }
-    // Escribir respuesta JSON en la respuesta HTTP
         response.getWriter().write(responseData.toString());
     }    
     protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -34,6 +34,56 @@ public class ControladorDeExamenes extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
+        }else if (accion != null && accion.equals("obtenerExamenesPendientes")) {
+            String jsonEspecialidades = gson.toJson(Servicio.ListaExamenesPendientes());
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
         }
     }
+                // POST students/
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        String accion = request.getParameter("accion");
+        if(accion != null && accion.equals("EnviarSolicitudNuevoExamen")){
+            String nombre = request.getParameter("nombre");
+            String descripcion = request.getParameter("Descripcion");
+            if(Servicio.CrearExamenPendiente(nombre,descripcion)){
+                response.setStatus(HttpServletResponse.SC_CREATED);
+            }else{
+                response.sendError(HttpServletResponse.SC_CONFLICT);
+            }
+        }
+    }
+           // PUT /
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+        String accion = request.getParameter("accion");
+        if (accion != null && accion.equals("ActualizarEstadoAdmin")) {
+            int Id = Integer.valueOf(request.getParameter("IdEL"));
+            if(Servicio.ModificarEstadoDeExamenNuevo(Id)){
+                response.setStatus(HttpServletResponse.SC_OK);
+            }else{
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        }
+    }
+        @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    int IdExamen = Integer.valueOf(request.getParameter("IdEL"));
+    if (Servicio.EliminarEstadoNuevo(IdExamen)) {
+        response.setStatus(HttpServletResponse.SC_OK);
+    } else {
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+}
+            @Override
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+}
 }

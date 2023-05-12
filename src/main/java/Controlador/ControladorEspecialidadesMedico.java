@@ -51,6 +51,12 @@ public class ControladorEspecialidadesMedico extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(jsonEspecialidades);
             out.flush();
+        }else if(accion != null && accion.equals("obtenerEspecialidadesPendientes")){       
+            String jsonEspecialidades = gson.toJson(ServicioEsp.EspecialidadesPendientes());
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(jsonEspecialidades);
+            out.flush();
         }
     }
    // PUT /
@@ -62,6 +68,14 @@ public class ControladorEspecialidadesMedico extends HttpServlet {
             int Id = Integer.valueOf(request.getParameter("IdEM"));
             String precioNuevo = (request.getParameter("Precio"));
             if(ServicioEsp.ActualizarPrecioPorId(Id, Double.valueOf(precioNuevo))){
+                response.setStatus(HttpServletResponse.SC_OK);
+            }else{
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        }else if (accion != null && accion.equals("CambiarEstado")) {
+            int Id = Integer.valueOf(request.getParameter("IdEL"));
+            String estado = (request.getParameter("Estado"));
+            if(ServicioEsp.CambiarEstado(Id,estado)){
                 response.setStatus(HttpServletResponse.SC_OK);
             }else{
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

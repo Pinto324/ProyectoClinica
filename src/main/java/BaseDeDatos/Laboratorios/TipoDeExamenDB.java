@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class TipoDeExamenDB {
         Con = new Conexion();
         List<TipoDeExamen> ListaExamenes = new ArrayList<>();
         try {
-            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM TipoDeExamenes WHERE EstadoExamen = True");
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM TipoDeExamenes WHERE EstadoExamen = True;");
             while(U.next()){  
                 TipoDeExamen Examen;
                 Examen= new TipoDeExamen(U.getInt (1),U.getString (2),U.getString (3));
@@ -43,6 +44,24 @@ public class TipoDeExamenDB {
         return null;
     }
     
+    //metodo para devolver la lista de examenes pendientes de revision
+        public List<TipoDeExamen> ListaDeExamenesPendientes(){
+        Con = new Conexion();
+        List<TipoDeExamen> ListaExamenes = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM TipoDeExamenes WHERE EstadoExamen = false;");
+            while(U.next()){  
+                TipoDeExamen Examen;
+                Examen= new TipoDeExamen(U.getInt (1),U.getString (2),U.getString (3));
+                ListaExamenes.add(Examen);
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return ListaExamenes;            
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
             
     public int BuscarPorUserName(String User){
         Con = new Conexion();
@@ -155,7 +174,7 @@ public class TipoDeExamenDB {
     public boolean EvitarRepetirExamen(ExamenesLaboratorios e){
         Con = new Conexion();
         try {
-            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios WHERE IdDelLabEL='"+e.getIdDelLab()+"' AND IdExamenEL='"+e.getIdExamen()+"';");
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios WHERE IdDelLabEL='"+e.getIdDelLab()+"' AND IdExamenEL='"+e.getIdExamen()+"' AND (EstadoEL = 'Activa' OR EstadoEL = 'Pendiente');");
                 if(U.next()){ 
                     return true;
                 }
@@ -186,5 +205,108 @@ public class TipoDeExamenDB {
         } catch (SQLException ex) {
         }
     }
-    
+           //metodo para crear examen pendiente
+    public boolean CrearExamenPendiente(String Nombre, String desc){
+    Con = new Conexion();
+        Con.IniciarConexion();
+        PreparedStatement ps;
+        String sql;
+        try {
+            sql = "insert into tipodeexamenes (NombreExamen, DescripcionExamen, EstadoExamen) values (?,?,?);";
+            Conn = Con.getConexion();
+            ps = Conn.prepareStatement(sql);
+            ps.setString(1, Nombre);
+            ps.setString(2, desc);
+            ps.setBoolean(3, false);
+            ps.executeUpdate();          
+            Con.CerrarConexiones();
+            Conn.close();
+            return true;
+        } catch (SQLException ex) {
+        }
+        return false;
+    }
+    //metodo para administrador que se encarga de regresar todos los cosos con examen pendiente
+    public List<String> SolicitudesDeAsignacionDeExamen(){
+        Con = new Conexion();
+        List<String> Info = new ArrayList<>();
+        try {
+            ResultSet U = Con.IniciarConexion().executeQuery("SELECT * FROM exameneslaboratorios INNER JOIN usuariosmedic ON usuariosmedic.IdUsuario = IdDelLabEL INNER JOIN tipodeexamenes ON tipodeexamenes.IdTipoDeExamenes = IdExamenEL WHERE EstadoEL='Pendiente';");
+            while(U.next()){ 
+                String dato;
+                dato = String.valueOf(U.getInt(U.findColumn("IdEL")));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreUsuario"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("NombreExamen"));
+                Info.add(dato);
+                dato = U.getString(U.findColumn("PrecioExamen"));
+                Info.add(dato); 
+            }
+                U.close();
+                Con.CerrarConexiones();
+                return Info;            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    //metodo para modificar el estado a rechazado o acpetado
+        //Metodo para modificar el precio de un examen asignado al laboratorio
+    public boolean ModificarEstadoDeExamenNuevo(int id){
+        try{
+            Con = new Conexion();
+            Con.IniciarConexion();
+            Date date = new Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            String Ssql = "UPDATE tipodeexamenes SET EstadoExamen=? WHERE IdTipoDeExamenes=?";
+            PreparedStatement cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setBoolean(1, true);
+            cambio.setInt(2, id);
+            cambio.executeUpdate();
+            //agregarle porcentaje en la app
+            Ssql = "insert into porcentajedecobroappexamenes (IdDelExamenPCE,PorcentajePCE, FechaDeInicioPCE, ActivaPCE) values (?,?,?,?);";
+            cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setInt(1, id);
+            cambio.setDouble(2, 0.04);
+            cambio.setDate(3, sqlDate);
+            cambio.setBoolean(4, true);
+            cambio.executeUpdate();  
+            Con.CerrarConexiones();
+            return true; 
+        }catch(SQLException e){
+       return false;
+        }
+    }
+            //Metodo para modificar el precio de un examen asignado al laboratorio
+    public boolean ModificarEstado(int id, String estado){
+        try{
+            Con = new Conexion();
+            Con.IniciarConexion();
+            String Ssql = "UPDATE exameneslaboratorios SET EstadoEL=? WHERE IdEL=?";
+            PreparedStatement cambio = Con.getConexion().prepareStatement(Ssql);
+            cambio.setString(1, estado);
+            cambio.setInt(2, id);
+            cambio.executeUpdate();
+            Con.CerrarConexiones();
+            return true; 
+        }catch(SQLException e){
+       return false;
+        }
+    }
+        //eliminar examen de consulta
+    public boolean EliminarExamenNuevo(int id){
+        try{
+            Con = new Conexion();        
+            Con.IniciarConexion();
+            PreparedStatement Borrador = Con.getConexion().prepareStatement("delete from tipodeexamenes WHERE IdTipoDeExamenes='" + id + "';");
+            Borrador.executeUpdate();
+            Con.CerrarConexiones();
+            Borrador.close();
+            return true;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return false;
+        }
+    }
 }

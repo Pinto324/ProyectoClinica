@@ -22,6 +22,7 @@ import Servicios.Laboratorios.ExamenesDeUnaSolicitudServicio;
 import Servicios.Laboratorios.ExamenesServicio;
 import Servicios.Laboratorios.SolicitudesServicio;
 import Servicios.Medicos.HorariosServicio;
+import Servicios.PorcentajeServicio;
 import Servicios.Reportes.GananciaGeneradaLabsServicio;
 import Servicios.UsuarioServicio;
 import java.io.BufferedReader;
@@ -100,6 +101,8 @@ public class ControladorCargaDeDatos extends HttpServlet {
     Especialidades NU = new Especialidades(id,nombre,descripcion);
     EspecialidadesServicio manejadorEspecialidad = new EspecialidadesServicio();
     manejadorEspecialidad.CrearEspecialidadCarga(NU);
+    PorcentajeServicio Servicio = new PorcentajeServicio();
+    Servicio.CargaDeDatosEspecialidad(id);
     }
   }catch(JSONException e){System.out.println("No hay Especialidades"); }
       //Tipo de Examenes
