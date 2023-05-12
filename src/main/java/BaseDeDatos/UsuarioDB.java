@@ -85,13 +85,17 @@ public class UsuarioDB {
         PreparedStatement ps;
         String sql;
         try {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] valorHashCalculado = digest.digest(user.getPassword().getBytes());
+        String valorHashCalculadoHex = bytesToHex(valorHashCalculado);
+            System.out.println(valorHashCalculadoHex);
             sql = "insert into UsuariosMedic (IdUsuario,NombreUsuario, Username, Password, Direccion, CUI, Telefono,Email,FechaNacimiento,Tipo,Saldo) values (?,?,?,?,?,?,?,?,?,?,?);";
             Conn = Con.getConexion();
             ps = Conn.prepareStatement(sql);
             ps.setInt(1, user.getCodigo());
             ps.setString(2, user.getNombre());
             ps.setString(3, user.getUserName());
-            ps.setString(4, user.getPassword());
+            ps.setString(4, valorHashCalculadoHex);
             ps.setString(5, user.getDireccion());
             ps.setString(6, user.getCUI());
             ps.setString(7, user.getTelefono());
@@ -104,6 +108,8 @@ public class UsuarioDB {
             Conn.close();
         } catch (SQLException ex) {
             System.out.println("ya hay un usuario con ese id en el sistema");
+        }catch(NoSuchAlgorithmException ex){
+        
         }
     }
     public boolean ModificarDatos(Usuario Nuevo){
